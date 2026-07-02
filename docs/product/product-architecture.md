@@ -1,661 +1,681 @@
-# SmartFormat Product Architecture
+# SmartFormat 产品架构文档
 
-## Product Positioning
+## 产品定位
 
-SmartFormat is a modern, clean, low-cost, cross-platform format factory for everyday users. It should feel more polished than legacy converter tools, simpler than professional transcoding software, and safer than online converters because files stay local.
+SmartFormat 是一款面向普通用户的现代、干净、低价、移动端优先的格式工厂。它应该比传统格式转换工具更精致，比专业转码软件更简单，也比在线转换网站更安全，因为 MVP 阶段的媒体处理都在用户设备本地完成。
 
-The product goal is not to beat every professional media tool. The goal is to support enough common format, compression, extraction, and batch workflows to become a daily utility that can sustain a solo business.
+产品目标不是打败所有专业媒体工具，而是覆盖足够常见的格式转换、压缩、提取、批量处理和任务记录场景，成为一款可以支撑一人公司持续经营的日常工具。
 
-## Core Advantages
+## 核心优势
 
-- Cross-platform Flutter app for Windows, macOS, Linux, Android, and iOS.
-- FFmpeg-based processing through `ffmpeg-kit-extended`.
-- Low operating cost as a solo company.
-- Clean UI, no bundled software, no aggressive ads.
-- Low price compared with traditional paid converter suites.
+- 使用 Flutter 构建，优先覆盖 iOS 和 Android，后续可扩展到桌面端。
+- 基于 `ffmpeg-kit-extended` 提供媒体处理能力。
+- 一人公司运营成本低，可以用低价策略切入市场。
+- 界面干净，不做捆绑软件，不做激进广告。
+- 相比传统付费转换套件，价格更低、体验更轻。
 
-## Product Principles
+## 产品原则
 
-- Build a broad product shelf first, then fill each shelf gradually.
-- Start with media formats before expanding into documents or cloud workflows.
-- Keep basic single-file tasks free forever.
-- Make Pro features about efficiency, scale, and advanced quality rather than taking away basic tools.
-- Prefer task names users understand over codec-heavy language.
-- Always show clear output location, estimated result, progress, and failure reason.
+- 先搭建完整工具货架，再逐步补齐每个工具项。
+- 先聚焦媒体格式，不急着扩展到文档、OCR 或云端工作流。
+- 基础单文件功能永久免费。
+- Pro 功能围绕效率、批量、专业效果和高级质量，不从用户手里收回基础能力。
+- 功能名称使用用户听得懂的任务语言，避免一上来暴露复杂编码参数。
+- 每个任务都必须清楚展示输出位置、处理进度、结果状态和失败原因。
 
-## Top-Level Information Architecture
+## 顶层信息架构
 
 ```text
 SmartFormat
-├── Video
-├── Audio
-├── Image
-├── Batch Tasks
-└── Toolbox
+├── 首页
+│   ├── 视频
+│   ├── 音频
+│   ├── 图片
+│   └── 工具箱
+├── 任务
+│   ├── 当前任务
+│   └── 任务记录
+└── 设置
 ```
 
-## Video Processing
+## 视频处理
 
-Video is the most important category. It creates the strongest user perception of value and covers many common FFmpeg workflows.
+视频是最重要的分类。它最容易让用户感知产品价值，也覆盖了大量 FFmpeg 的常见能力。
 
-### Initial Items
+### 首批工具项
 
-- Format conversion
-- Video compression
-- Extract audio
-- Video to GIF
-- Video to Live Photo
+- 格式转换
+- 视频压缩
+- 提取音频
+- 视频转 GIF
+- 视频转 Live Photo
 
-### Later Items
+### 后续工具项
 
-- Trim video
-- Merge videos
-- Remove audio
-- Replace audio
-- Extract cover frame
-- Burn subtitles
-- Convert subtitles to video captions
-- Change container without re-encoding
-- Platform presets for Bilibili, Douyin, Xiaohongshu, WeChat Channels, YouTube, and Instagram
+- 视频裁剪
+- 视频合并
+- 去除音频
+- 替换音频
+- 提取封面
+- 字幕烧录
+- 字幕转视频字幕
+- 不重新编码修改封装格式
+- 平台预设：B 站、抖音、小红书、微信视频号、YouTube、Instagram
 
-### Notes
+### 备注
 
-Video to Live Photo should be treated as a high-perceived-value feature. It can become a Pro feature after the early free period because it feels more special than ordinary conversion.
+视频转 Live Photo 属于高感知价值功能。早期版本可以免费开放体验，正式版后适合作为 Pro 功能，因为它比普通格式转换更有特殊感。
 
-## Audio Processing
+## 音频处理
 
-Audio should cover simple conversion first, then move into quality improvement and creator workflows.
+音频分类先覆盖简单转换，再逐步扩展到音质优化和创作者工作流。
 
-### Initial Items
+### 首批工具项
 
-- Format conversion
-- Audio compression
-- Audio noise reduction
-- Extract audio from video
+- 格式转换
+- 音频压缩
+- 音频降噪
+- 从视频提取音频
 
-### Later Items
+### 后续工具项
 
-- Normalize volume
-- Trim audio
-- Merge audio
-- Convert to ringtone
-- Change sample rate
-- Convert mono/stereo
-- Remove silence
-- Loudness target presets for podcast and video publishing
+- 音量标准化
+- 音频裁剪
+- 音频合并
+- 转换为铃声
+- 修改采样率
+- 单声道/立体声转换
+- 移除静音
+- 播客和视频发布响度预设
 
-### Notes
+### 备注
 
-Noise reduction is valuable but quality-sensitive. The first version can use a conservative preset and expose a simple strength control later.
+音频降噪有价值，但质量敏感。第一版可以提供保守预设，后续再增加简单的强度控制。
 
-## Image Processing
+## 图片处理
 
-Image processing makes the product feel more like a complete format factory, while keeping early implementation manageable.
+图片处理能让产品更像完整的格式工厂，同时首版实现成本相对可控。
 
-### Initial Items
+### 首批工具项
 
-- Format conversion
-- Image compression
-- HEIC to JPG/PNG
+- 格式转换
+- 图片压缩
+- HEIC 转 JPG/PNG
 
-### Later Items
+### 后续工具项
 
-- Resize images
-- WebP conversion
-- AVIF conversion
-- GIF frame extraction
-- Create GIF from images
-- Batch rename
-- Remove metadata
-- Convert live photo assets
+- 调整图片尺寸
+- WebP 转换
+- AVIF 转换
+- GIF 拆帧
+- 多图合成 GIF
+- 批量重命名
+- 移除元数据
+- Live Photo 资源转换
 
-### Notes
+### 备注
 
-Image features should be designed for batch use from the beginning, even if batch processing is gated as a future Pro capability.
+图片功能从一开始就要按批量处理思路设计，即使批量能力后续作为 Pro 功能开放。
 
-## Batch Tasks
+## 批量任务
 
-Batch processing is the core Pro value. It saves user time and gives a clear reason to pay.
+批量处理是核心 Pro 价值。它能节省用户时间，也给付费提供清晰理由。
 
-### Initial Items
+### 首批工具项
 
-- Task queue
-- Batch conversion
-- Batch compression
-- Failed task retry
-- Task records
+- 任务队列
+- 批量转换
+- 批量压缩
+- 失败任务重试
+- 任务记录
 
-### Later Items
+### 后续工具项
 
-- Concurrent task control
-- Output naming templates
-- Watch folder automation
-- Import/export presets
-- Pause and resume queue
+- 并发任务控制
+- 输出命名模板
+- 文件夹自动监听
+- 导入/导出预设
+- 暂停和恢复队列
 
-## Toolbox
+## 工具箱
 
-Toolbox contains utility actions that do not belong to one main category or are shared across media types.
+工具箱放置不属于单一分类，或跨媒体类型复用的能力。
 
-### Initial Items
+### 首批工具项
 
-- View media information
-- Open output folder
-- Recent task records
+- 查看媒体信息
+- 打开输出位置
+- 最近任务记录
 
-### Later Items
+### 后续工具项
 
-- Subtitle format conversion
-- Subtitle burn-in
-- Metadata removal
-- Container remux
-- Check file compatibility
-- Estimate output size
+- 字幕格式转换
+- 字幕烧录
+- 移除元数据
+- 封装转换
+- 文件兼容性检查
+- 估算输出大小
 
-## MVP Scope
+## MVP 范围
 
-The first usable version should ship with a complete product shell and a small number of working tools in each main category.
+第一版可用产品应该有完整产品壳，并且每个主要分类都有少量真正可用的工具。
 
-### MVP Closed Loop
+### MVP 完整闭环
 
-The MVP is complete only when a user can finish one real processing job from start to end:
+MVP 只有在用户能完整跑通一次真实处理任务时，才算成立：
 
 ```text
-Open app
--> Choose a tool
--> Choose input source
--> Select files
--> Preview file information
--> Adjust simple options
--> Choose output target
--> Start task
--> Track progress
--> View result
--> Open, save, share, retry, or report a problem
--> Find the task later in Task Records
+打开 App
+-> 选择工具
+-> 选择输入源
+-> 选择文件
+-> 预览文件信息
+-> 调整简单参数
+-> 选择输出目标
+-> 开始任务
+-> 查看进度
+-> 查看结果
+-> 打开、保存、分享、重试或反馈问题
+-> 后续在任务记录中找回
 ```
 
-This closed loop matters more than the number of tools. A small set of reliable tools is better than many entries that cannot produce, save, or recover results clearly.
+这个闭环比工具数量更重要。少量可靠工具，比一堆无法清楚产出、保存和找回结果的入口更有价值。
 
-### MVP Features
+### MVP 功能清单
 
-- Home page with Video, Audio, Image, and Toolbox category tabs.
-- Bottom navigation with Home, Tasks, and Settings.
-- Video format conversion.
-- Video compression.
-- Extract audio from video.
-- Video to GIF.
-- Video to Live Photo.
-- Audio format conversion.
-- Audio compression.
-- Basic audio noise reduction.
-- Image format conversion.
-- Image compression.
-- HEIC to JPG/PNG.
-- Task queue with progress, success, failure, and cancel states.
-- Task records with input file, output file, tool type, time, status, and quick actions.
-- Input source selection.
-- Output target selection.
-- File preview and preflight validation.
-- Permission request and denied-permission recovery.
-- Result page after task completion.
-- User-friendly error messages.
-- Temporary file and cache cleanup.
-- Basic first-launch explanation.
-- Feedback entry from Settings and failed tasks.
-- Privacy policy, user agreement, and open source license entries.
-- Output folder selection.
-- Basic media information view.
+- 首页包含视频、音频、图片、工具箱分类 Tab。
+- 底部导航包含首页、任务、设置。
+- 视频格式转换。
+- 视频压缩。
+- 从视频提取音频。
+- 视频转 GIF。
+- 视频转 Live Photo。
+- 音频格式转换。
+- 音频压缩。
+- 基础音频降噪。
+- 图片格式转换。
+- 图片压缩。
+- HEIC 转 JPG/PNG。
+- 任务队列，包含进度、成功、失败、取消状态。
+- 任务记录，包含输入文件、输出文件、工具类型、时间、状态和快捷操作。
+- 输入源选择。
+- 输出目标选择。
+- 文件预览和预检。
+- 权限请求和权限拒绝后的恢复引导。
+- 任务完成后的结果页。
+- 用户能看懂的错误提示。
+- 临时文件和缓存清理。
+- 简短的首次启动说明。
+- 设置页反馈入口和失败任务反馈入口。
+- 隐私政策、用户协议、开源许可证入口。
+- 输出位置选择。
+- 基础媒体信息查看。
 
-### MVP Input Sources
+### MVP 输入源
 
-Input source is about where files come from. It should be independent from tools and output targets.
+输入源表示文件从哪里来。它应该独立于工具和输出目标。
 
-Initial input sources:
+首批输入源：
 
-- Photo library.
-- System file picker.
-- Share from other apps.
-- Recent files or recent task records.
+- 相册。
+- 系统文件选择器。
+- 从其他 App 分享进入。
+- 最近文件或最近任务记录。
 
-Deferred input sources:
+暂缓输入源：
 
-- Cloud drive import.
-- Network URL import.
-- Camera capture.
-- Screen recording.
+- 网盘导入。
+- 网络 URL 导入。
+- 相机拍摄。
+- 屏幕录制。
 
-Cloud drive should be deferred because it brings account login, authorization, transfer progress, retry, privacy, and support complexity.
+网盘应该暂缓，因为它会带来账号登录、授权、传输进度、失败重试、隐私和客服支持复杂度。
 
-### MVP Output Targets
+### MVP 输出目标
 
-Output target is about where processed files go. It should be independent from tools and input sources.
+输出目标表示处理后的文件去哪里。它应该独立于工具和输入源。
 
-Initial output targets:
+首批输出目标：
 
-- App result storage.
-- Save to photo library.
-- Save to system files.
-- Share to other apps.
+- App 内结果存储。
+- 保存到相册。
+- 保存到系统文件。
+- 分享到其他 App。
 
-Deferred output targets:
+暂缓输出目标：
 
-- Cloud drive export.
-- Automatic export rules.
-- Watch folder output.
+- 网盘导出。
+- 自动导出规则。
+- 监听文件夹输出。
 
-Every completed task should show where the output file is stored. If saving fails, the user should still be able to find the temporary result when possible and choose another output target.
+每个已完成任务都必须告诉用户输出文件存在哪里。如果保存失败，只要可能，用户仍然应该能找到临时结果，并选择另一个输出目标。
 
-### File Preflight
+### 文件预检
 
-Before processing starts, the app should inspect the selected file and show enough information to reduce confusion.
+处理开始前，App 应该检查所选文件，并展示足够信息来减少困惑。
 
-Preflight should show:
+预检应展示：
 
-- File name.
-- File type.
-- File size.
-- Duration for video and audio.
-- Resolution for video and image.
-- Current format or container.
-- Expected output format.
-- Basic compatibility status.
+- 文件名。
+- 文件类型。
+- 文件大小。
+- 视频/音频时长。
+- 视频/图片分辨率。
+- 当前格式或封装。
+- 预计输出格式。
+- 基础兼容性状态。
 
-Preflight should block or warn when:
+以下情况应阻止处理或给出警告：
 
-- The file type is unsupported.
-- The file cannot be read.
-- The selected output target is unavailable.
-- Free storage is likely insufficient.
-- Required permission is missing.
+- 文件类型不支持。
+- 文件无法读取。
+- 所选输出目标不可用。
+- 可用存储空间可能不足。
+- 缺少必要权限。
 
-### Permissions
+### 权限流程
 
-Permissions are part of the product flow, not a technical afterthought.
+权限是产品流程的一部分，不是纯技术细节。
 
-MVP permission cases:
+MVP 权限场景：
 
-- Read from photo library.
-- Save to photo library.
-- Pick files from system storage.
-- Receive files shared from other apps.
-- Optional notification permission for long-running tasks.
+- 读取相册。
+- 保存到相册。
+- 从系统存储选择文件。
+- 接收其他 App 分享进来的文件。
+- 长任务通知权限，可选。
 
-If permission is denied, the app should explain why it is needed and offer a path to system settings. The user should not be trapped on a dead page.
+如果用户拒绝权限，App 应该解释为什么需要该权限，并提供跳转系统设置的路径。用户不能被卡在一个死页面上。
 
-### Result Page
+### 结果页
 
-After a task completes, the user should land on a clear result page or result sheet.
+任务完成后，用户应该看到清晰的结果页或结果弹层。
 
-The result page should show:
+结果页应展示：
 
-- Output file name.
-- Output size.
-- Save location.
-- Tool used.
-- Processing status.
-- Open action.
-- Share action.
-- Save again action.
-- Process another file action.
-- View task record action.
+- 输出文件名。
+- 输出大小。
+- 保存位置。
+- 使用的工具。
+- 处理状态。
+- 打开。
+- 分享。
+- 重新保存。
+- 再处理一个文件。
+- 查看任务记录。
 
-This page closes the loop. It tells users what happened, where the result is, and what they can do next.
+结果页负责闭环。它告诉用户发生了什么，结果在哪里，接下来能做什么。
 
-### Error Handling
+### 错误处理
 
-FFmpeg errors should be translated into user-facing messages.
+FFmpeg 错误需要翻译成用户能理解的提示。
 
-Initial error categories:
+首批错误分类：
 
-- Unsupported format.
-- File cannot be read.
-- File appears damaged.
-- Permission denied.
-- Storage space is insufficient.
-- Output target failed.
-- Encoder or decoder unavailable.
-- Task canceled.
-- Unknown processing failure.
+- 格式不支持。
+- 文件无法读取。
+- 文件可能已损坏。
+- 权限不足。
+- 存储空间不足。
+- 输出目标失败。
+- 编码器或解码器不可用。
+- 任务已取消。
+- 未知处理失败。
 
-Each failed task should show a short explanation and at least one next action:
+每个失败任务都应该展示简短解释，并至少提供一个下一步操作：
 
-- Retry.
-- Choose another output format.
-- Choose another output location.
-- Report this issue.
-- Delete task record.
+- 重试。
+- 选择其他输出格式。
+- 选择其他输出位置。
+- 反馈此问题。
+- 删除任务记录。
 
-### Storage And Cache
+### 存储和缓存
 
-Media processing can quickly consume storage, so storage behavior must be clear in the MVP.
+媒体处理很容易占用大量空间，因此 MVP 必须把存储行为讲清楚。
 
-The app should separate:
+App 应该区分：
 
-- Temporary processing files.
-- App result files.
-- Task record metadata.
-- Diagnostic logs.
+- 临时处理文件。
+- App 结果文件。
+- 任务记录元数据。
+- 诊断日志。
 
-Settings should include clear cache. The task record should survive cache cleanup, but it should mark missing output files if the file no longer exists.
+设置页应包含清理缓存。清理缓存后任务记录应继续存在，但如果输出文件已经不存在，任务记录要标记文件缺失。
 
-### First Launch
+### 首次启动
 
-First launch should be short and trust-building.
+首次启动说明要短，并建立信任感。
 
-It should explain:
+需要说明：
 
-- Media processing happens on the device in the MVP.
-- Basic features are free.
-- Results can be found later in Task Records.
+- MVP 阶段媒体处理发生在设备本地。
+- 基础功能免费。
+- 结果可以后续在任务记录中找回。
 
-Do not use a long onboarding flow. Let the user start processing quickly.
+不要做很长的新手引导。用户应该能快速开始处理文件。
 
-### Feedback
+### 反馈
 
-Feedback should be available from Settings and failed task records.
+反馈入口应同时出现在设置页和失败任务记录中。
 
-When reporting from a failed task, the app can attach:
+从失败任务反馈时，App 可以附带：
 
-- App version.
-- Device model.
-- OS version.
-- Tool type.
-- Error category.
-- FFmpeg error summary.
+- App 版本。
+- 设备型号。
+- 系统版本。
+- 工具类型。
+- 错误分类。
+- FFmpeg 错误摘要。
 
-The app should not upload the user's input or output files unless the user explicitly chooses to attach them.
+除非用户明确选择附加文件，否则 App 不应上传用户的输入文件或输出文件。
 
-### Legal And Trust
+### 法务和信任
 
-The MVP should include visible legal and trust entries before public release:
+公开发布前，MVP 应包含清晰可见的法务与信任入口：
 
-- Privacy policy.
-- User agreement.
-- Open source licenses.
-- FFmpeg and related codec license notes.
-- Local processing explanation.
+- 隐私政策。
+- 用户协议。
+- 开源许可证。
+- FFmpeg 和相关编解码器许可说明。
+- 本地处理说明。
 
-This is especially important because the app handles private media files.
+这点很重要，因为 App 会处理用户的私密媒体文件。
 
-### Deferred From MVP
+### 暂缓进入 MVP 的能力
 
-- PDF and Office conversion.
-- OCR.
-- Cloud upload or cloud transcoding.
-- Full video editing timeline.
-- Screen recording.
-- AI upscaling.
-- Team accounts.
+- PDF 和 Office 转换。
+- OCR。
+- 云端上传或云端转码。
+- 完整视频剪辑时间线。
+- 屏幕录制。
+- AI 超分辨率。
+- 团队账号。
 
-## Free And Pro Strategy
+## 免费和 Pro 策略
 
-SmartFormat should be generous early, but the commercial boundary should be clear from day one.
+SmartFormat 早期应该足够慷慨，但商业边界要从第一天就清楚。
 
-### Free Forever
+### 永久免费
 
-- Single-file video conversion.
-- Single-file audio conversion.
-- Single-file image conversion.
-- Basic video compression.
-- Basic image compression.
-- Extract audio from video.
-- View media information.
-- Common output presets.
+- 单文件视频转换。
+- 单文件音频转换。
+- 单文件图片转换。
+- 基础视频压缩。
+- 基础图片压缩。
+- 从视频提取音频。
+- 查看媒体信息。
+- 常用输出预设。
 
-### Early Free, Future Pro
+### 早期免费体验，未来进入 Pro
 
-- Batch conversion.
-- Batch compression.
-- Task record retention.
-- Video to Live Photo.
-- Audio noise reduction.
-- Subtitle burn-in.
-- Hardware acceleration controls.
-- Custom presets.
-- Watch folder automation.
-- Advanced output naming.
+- 批量转换。
+- 批量压缩。
+- 任务记录长期保留。
+- 视频转 Live Photo。
+- 音频降噪。
+- 字幕烧录。
+- 硬件加速控制。
+- 自定义预设。
+- 文件夹自动监听。
+- 高级输出命名。
 
-### User-Facing Message
+### 对用户的表达
 
-SmartFormat early versions open all features for free testing. After the official release, basic features will remain free forever, while advanced efficiency features will move to Pro. Early users will receive special upgrade benefits.
+SmartFormat 早期版本开放全部功能免费体验。正式版发布后，基础功能永久免费，高级效率功能将进入 Pro。早期用户会获得专属升级权益。
 
-## Suggested Pricing
+## 建议定价
 
-Pricing should be low enough for a solo utility business and simple enough to avoid purchase hesitation.
+定价要足够低，符合一人公司工具产品定位，也要简单，减少用户购买犹豫。
 
-### China
+### 中国区
 
-- Early lifetime: RMB 29-49.
-- Official lifetime: RMB 68-98.
-- Optional yearly plan: RMB 38-58 per year.
+- 早鸟终身版：人民币 29-49 元。
+- 正式终身版：人民币 68-98 元。
+- 可选年费：人民币 38-58 元/年。
 
-### International
+### 国际区
 
-- Early lifetime: USD 9.99-19.99.
-- Official lifetime: USD 24.99-39.99.
-- Optional yearly plan: USD 9.99-14.99 per year.
+- 早鸟终身版：9.99-19.99 美元。
+- 正式终身版：24.99-39.99 美元。
+- 可选年费：9.99-14.99 美元/年。
 
-## Mobile UI Structure
+## 移动端 UI 结构
 
-### Home
+### 首页
 
-The home page should show the product as a complete utility suite while staying friendly for one-handed mobile use:
+首页应该展示完整工具套件，同时适合移动端单手操作：
 
-- Top area: app name, current Pro/early access state, and a small settings entry.
-- Main area: category tabs for Video, Audio, Image, and Toolbox.
-- Tool list: a scrollable card list under the selected category tab.
-- Quick actions: optional pinned cards for the most common tools, such as video conversion, video compression, extract audio, and image conversion.
-- Active task strip: a compact progress entry when tasks are running.
-- Recent task records and output shortcuts.
+- 顶部区域：App 名称、当前 Pro/早期体验状态、设置入口。
+- 主区域：视频、音频、图片、工具箱分类 Tab。
+- 工具列表：当前分类 Tab 下的可滚动卡片列表。
+- 快捷入口：可选，固定展示最常用工具，例如视频转换、视频压缩、提取音频、图片转换。
+- 当前任务条：有任务运行时展示紧凑进度入口。
+- 最近任务记录和输出快捷入口。
 
-### Bottom Navigation
+### 底部导航
 
-Mobile should use bottom navigation only for global destinations:
+移动端底部导航只放全局页面：
 
-- Home
-- Tasks
-- Settings
+- 首页
+- 任务
+- 设置
 
-Video, Audio, Image, and Toolbox should not be bottom navigation items. They belong inside Home as category tabs, because they are tool categories rather than app-level destinations.
+视频、音频、图片、工具箱不放在底部导航里。它们属于首页内部的工具分类，而不是 App 级页面。
 
-### Tasks
+### 任务页
 
-Tasks should combine active processing and task records. Users need one place to see what is running now and what was processed before.
+任务页同时承载当前处理和任务记录。用户需要在一个地方看到现在正在处理什么，以及之前处理过什么。
 
-The page should have two sections or tabs:
+页面可分为两个区块或 Tab：
 
 ```text
-Current Tasks | Task Records
+当前任务 | 任务记录
 ```
 
-Current Tasks shows the current queue:
+当前任务展示当前队列：
 
-- Waiting tasks.
-- Running tasks with progress.
-- Failed tasks with retry.
-- Canceled tasks.
+- 等待中任务。
+- 处理中任务和进度。
+- 失败任务和重试。
+- 已取消任务。
 
-Task Records shows all task records, including completed, failed, and canceled work:
+任务记录展示所有任务记录，包括已完成、失败和取消：
 
-- Original input file name and source.
-- Output file name and save location.
-- Tool used, such as video compression or image conversion.
-- Created time.
-- Processing status.
-- Basic settings summary, such as output format or compression level.
-- Quick actions: open, share, save again, retry, delete record.
+- 原始输入文件名和来源。
+- 输出文件名和保存位置。
+- 使用的工具，例如视频压缩或图片转换。
+- 创建时间。
+- 处理状态。
+- 基础参数摘要，例如输出格式或压缩等级。
+- 快捷操作：打开、分享、重新保存、重试、删除记录。
 
-Task records should not be treated as permanent file backup. If the output file is deleted outside the app, the app should show that the file is missing and offer to remove the record or retry from the original input if available.
+任务记录不能被当成永久文件备份。如果用户在 App 外删除了输出文件，App 应显示文件已不存在，并提供删除记录或在原输入仍可用时重新处理。
 
-### Settings
+### 设置页
 
-Settings is a required top-level page because it carries trust, support, localization, legal, and product account states.
+设置页是必需的一级页面，因为它承载信任、支持、多语言、法务和产品授权状态。
 
-Initial settings items:
+首批设置项：
 
-- Language.
-- Feedback.
-- User agreement.
-- Privacy policy.
-- About SmartFormat.
-- App version.
-- Clear cache.
-- Default output location.
-- Early access or Pro status.
+- 多语言。
+- 用户反馈。
+- 用户协议。
+- 隐私政策。
+- 关于 SmartFormat。
+- App 版本。
+- 清理缓存。
+- 默认输出位置。
+- 早期体验或 Pro 状态。
 
-Later settings items:
+后续设置项：
 
-- Restore purchases.
-- Manage subscription or license.
-- Contact support.
-- Rate the app.
-- Open source licenses.
-- Diagnostic logs.
-- Theme mode.
-- Notification preferences.
-- Default processing quality.
+- 恢复购买。
+- 管理订阅或授权。
+- 联系支持。
+- 评价 App。
+- 开源许可证。
+- 诊断日志。
+- 主题模式。
+- 通知偏好。
+- 默认处理质量。
 
-Settings should stay simple and grouped into sections:
+设置页应保持简单，并按分组展示：
 
 ```text
-General
-- Language
-- Theme mode
-- Default output location
+通用
+- 多语言
+- 主题模式
+- 默认输出位置
 
-Support
-- Feedback
-- Contact support
-- Rate the app
+支持
+- 用户反馈
+- 联系支持
+- 评价 App
 
-Account & Pro
-- Early access / Pro status
-- Restore purchases
-- Manage license
+账号与 Pro
+- 早期体验 / Pro 状态
+- 恢复购买
+- 管理授权
 
-Privacy & Legal
-- Privacy policy
-- User agreement
-- Open source licenses
+隐私与法律
+- 隐私政策
+- 用户协议
+- 开源许可证
 
-Storage
-- Clear cache
-- Diagnostic logs
+存储
+- 清理缓存
+- 诊断日志
 
-About
-- App version
-- About SmartFormat
+关于
+- App 版本
+- 关于 SmartFormat
 ```
 
-### Home Category Tabs
+### 首页分类 Tab
 
-Home should use category tabs:
+首页使用分类 Tab：
 
 ```text
-Video | Audio | Image | Toolbox
+视频 | 音频 | 图片 | 工具箱
 ```
 
-The selected tab should show a vertical `ListView` of tool cards. Each card should have:
+当前选中的 Tab 下方展示垂直 `ListView` 工具卡片。每张卡片包含：
 
-- Tool name.
-- One-line purpose.
-- Supported common formats or a short tag.
-- Free, early access, or future Pro state if needed.
-- Chevron or primary action affordance.
+- 工具名称。
+- 一句话用途说明。
+- 支持的常见格式或短标签。
+- 免费、早期体验或未来 Pro 状态。
+- 进入箭头或主要操作提示。
 
-Example:
+示例：
 
 ```text
-Video tab
-- Format Conversion
-- Video Compression
-- Extract Audio
-- Video to GIF
-- Video to Live Photo
+视频 Tab
+- 格式转换
+- 视频压缩
+- 提取音频
+- 视频转 GIF
+- 视频转 Live Photo
 ```
 
-### Tool Detail Page
+### 工具详情页
 
-Each tool should follow the same pattern:
+每个工具遵循同一套流程：
 
 ```text
-Select files
--> Choose output format or goal
--> Adjust simple options
--> Choose output location
--> Start task
--> View progress and result
+选择文件
+-> 选择输出格式或目标
+-> 调整简单参数
+-> 选择输出位置
+-> 开始任务
+-> 查看进度和结果
 ```
 
-Advanced settings should be collapsed by default.
+高级设置默认折叠。
 
-### Task Queue
+### 任务队列
 
-The task queue should be a first-class part of the product, not a hidden progress dialog.
+任务队列应该是产品的一等能力，而不是隐藏在某个进度弹窗里。
 
-Required states:
+必需状态：
 
-- Waiting
-- Running
-- Completed
-- Failed
-- Canceled
+- 等待中
+- 处理中
+- 已完成
+- 失败
+- 已取消
 
-Each task should show input file, output format, progress, output path, and clear error text if it fails.
+每个任务都应该展示输入文件、输出格式、处理进度、输出路径，以及失败时清晰的错误说明。
 
-## Technical Product Notes
+## 技术产品说明
 
-- Use a shared task model for all tools.
-- Each tool should generate a structured processing request before converting it into an FFmpeg command.
-- Avoid scattering raw FFmpeg command strings across UI files.
-- Keep command generation, task execution, progress parsing, and UI state separate.
-- Design the feature registry so new tool items can be added without rewriting navigation.
+- 所有工具共用一套任务模型。
+- 每个工具先生成结构化处理请求，再转换成 FFmpeg 命令。
+- 避免把原始 FFmpeg 命令字符串散落在 UI 文件里。
+- 命令生成、任务执行、进度解析、UI 状态应分离。
+- 设计工具注册表，让新增工具项主要是配置和命令生成，而不是重写导航。
+- 输入源、处理工具、输出目标应相互独立，通过任务系统连接。
+- 任务记录保存元数据，不等同于永久文件备份。
 
-## Roadmap
+## 路线图
 
-### Phase 1: Product Shell
+### 阶段 1：产品壳
 
-- Create Flutter app shell.
-- Build mobile bottom navigation and tool registry.
-- Add empty tool pages for all planned categories.
-- Implement task queue UI.
+- 创建 Flutter App 壳。
+- 构建移动端底部导航和工具注册表。
+- 为所有规划分类添加空工具页。
+- 实现任务队列 UI。
+- 实现基础设置页。
 
-### Phase 2: Core Media Tools
+### 阶段 2：核心媒体工具
 
-- Implement video conversion.
-- Implement video compression.
-- Implement extract audio.
-- Implement audio conversion.
-- Implement image conversion.
-- Implement image compression.
+- 实现视频转换。
+- 实现视频压缩。
+- 实现提取音频。
+- 实现音频转换。
+- 实现图片转换。
+- 实现图片压缩。
 
-### Phase 3: High-Value Tools
+### 阶段 3：MVP 闭环
 
-- Implement video to GIF.
-- Implement video to Live Photo.
-- Implement audio noise reduction.
-- Implement HEIC conversion.
-- Add task record retention.
+- 实现输入源选择。
+- 实现输出目标选择。
+- 实现文件预检。
+- 实现权限引导。
+- 实现结果页。
+- 实现任务记录。
+- 实现错误提示映射。
+- 实现清理缓存。
 
-### Phase 4: Pro Preparation
+### 阶段 4：高价值工具
 
-- Add feature flags for Pro capabilities.
-- Add early-user messaging.
-- Add license state model.
-- Add pricing page or upgrade screen.
+- 实现视频转 GIF。
+- 实现视频转 Live Photo。
+- 实现音频降噪。
+- 实现 HEIC 转换。
+- 完善任务记录长期保留。
 
-### Phase 5: Growth Features
+### 阶段 5：Pro 准备
 
-- Add platform presets.
-- Add subtitle tools.
-- Add watch folder automation.
-- Add advanced batch naming.
+- 增加 Pro 功能开关。
+- 增加早期用户提示。
+- 增加授权状态模型。
+- 增加价格页或升级页。
 
-## Success Metrics
+### 阶段 6：增长功能
 
-- Users can understand what the app does within 10 seconds.
-- A new user can convert one file without reading documentation.
-- A batch workflow saves enough time that paying feels reasonable.
-- The product feels trustworthy: no ads, no bundled software, clear local file processing.
-- Adding a new tool item should be mostly configuration plus command generation, not a new app architecture.
+- 增加平台预设。
+- 增加字幕工具。
+- 增加文件夹自动监听。
+- 增加高级批量命名。
+
+## 成功指标
+
+- 用户在 10 秒内能理解 App 是做什么的。
+- 新用户不看文档也能完成一次文件转换。
+- 用户能清楚知道输出文件在哪里。
+- 用户能在任务记录中找回之前的输入、输出和参数。
+- 批量工作流能明显节省时间，让付费显得合理。
+- 产品让人信任：无广告、无捆绑、本地处理说明清楚。
+- 新增工具项主要依赖配置和命令生成，不需要改动整体 App 架构。
