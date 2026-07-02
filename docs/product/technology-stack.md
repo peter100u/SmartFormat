@@ -153,10 +153,10 @@ Riverpod 适合 Mova 的原因：
 
 建议早期将状态划分为几类：
 
-- 应用级状态：主题、语言、权限状态。
+- 应用级状态：语言、权限状态、首次启动说明状态。主题模式后续再加入。
 - 工具配置状态：当前选择的工具、输入文件、输出目标、参数预设。
 - 任务状态：处理中、成功、失败、取消和重试。
-- 持久化状态：任务记录、最近文件、用户偏好。
+- 持久化状态：任务记录、用户偏好。独立最近文件能力后续再加入。
 
 Riverpod 使用规则：
 
@@ -184,8 +184,7 @@ go_router 适合 Mova 的原因：
 ├── home
 │   ├── video
 │   ├── audio
-│   ├── image
-│   └── toolbox
+│   └── image
 ├── tasks
 │   └── :taskId
 ├── settings
@@ -199,7 +198,7 @@ Mova 使用 Drift 作为本地数据库方案。
 
 Drift 适合 Mova 的原因：
 
-- 基于 SQLite，适合本地任务记录、用户偏好、最近文件和处理历史。
+- 基于 SQLite，适合本地任务记录、用户偏好和处理历史。独立最近文件列表后续再评估。
 - 支持类型安全查询，能降低手写 SQL 的维护成本。
 - 适合 Flutter 应用离线优先的数据存储需求。
 - 方便后续做数据库迁移、任务筛选、失败重试和历史记录检索。
@@ -212,8 +211,8 @@ Mova 使用 `ffmpeg_kit_extended_flutter` 作为本地媒体处理核心。
 
 该依赖用于：
 
-- 视频格式转换、压缩和提取音频。
-- 音频格式转换、压缩和从视频提取音频。
+- 视频格式转换、压缩和视频转音频。
+- 音频格式转换、压缩和视频转音频。
 - 图片相关处理里需要 FFmpeg 能力的场景，例如部分封装或格式转换。
 - 通过 FFprobe 读取文件预检信息，用于任务记录和错误诊断。
 - 获取执行日志、统计信息、返回码和失败摘要，用于进度展示和用户可理解的错误提示。
@@ -251,36 +250,79 @@ Mova 的所有处理工具都应共用一套任务模型和任务执行流程。
 
 ### 文件、权限和分享
 
-Mova MVP 需要完整支持输入源、输出目标、权限恢复和结果分享，因此需要明确平台能力依赖。
+Mova MVP 需要完整支持输入源、基础输出目标、权限恢复和结果分享，因此需要明确平台能力依赖。
 
 首批依赖：
 
-- `file_picker`：系统文件选择器，用于从文件 App 或系统存储选择单个或多个输入文件，也用于系统保存/另存为流程。
-- `photo_manager`：相册资产读取、相册保存、相册权限状态和部分 Live Photo 资源能力。MVP 先用于相册读取和保存，Live Photo 仅作为后续验证方向。
+- `file_picker`：系统文件选择器，用于从文件 App 或系统存储选择单个或多个输入文件。系统保存/另存为流程后续再验证。
+- `photo_manager`：相册资产读取、相册权限状态和部分 Live Photo 资源能力。MVP 先用于相册读取；相册保存和 Live Photo 作为后续验证方向。
 - `permission_handler`：统一检查和请求相册、通知、存储等权限，并支持跳转系统设置。
 - `share_plus`：分享处理后的文件到其他 App，支撑结果页和任务记录快捷操作。
-- `receive_sharing_intent`：接收其他 App 分享进入的文件，支撑移动端关键输入源。
 - `open_filex`：调用系统能力打开处理后的文件，支撑结果页和任务记录的「打开」操作。
+- `path`：统一处理文件名、扩展名、输出文件路径和 App 内结果目录拼接，避免手写字符串路径。
+- `mime`：根据文件扩展名和文件头辅助识别 MIME type，用于输入文件预检、工具兼容性判断和分享参数。
+- `uuid`：生成任务 ID、输出文件关联 ID 和日志关联 ID，让任务记录、执行日志和结果文件可以稳定关联。
 - `url_launcher`：打开隐私政策、用户协议、许可证源码链接、反馈邮件或外部网页。
 
 这些能力必须通过 `services/` 层封装，页面不能直接依赖插件 API。权限被拒绝时，service 应返回能被 UI 翻译成人话的状态，而不是把平台错误直接抛到页面。
 
-分享进入注意事项：
+其他 App 分享进入暂不进入 MVP。后续如果加入，需要先验证 Android `SEND`/`SEND_MULTIPLE` intent filter、iOS Share Extension、App Group、文件访问权限和多文件输入规则。
 
-- Android 需要配置 `SEND`、`SEND_MULTIPLE` 和相关 MIME type intent filter。
-- iOS 需要 Share Extension、App Group 和对应 entitlement。
-- 分享进入的数据应先转换为统一的输入文件模型，再进入工具选择或任务创建流程。
-- 接收到多个文件时，遵循多文件输入规则，为每个文件生成独立任务。
+### 图片展示与预览
+
+Mova 使用 `extended_image` 处理图片展示、预览和基础查看体验。
+
+该依赖用于：
+
+- 图片工具详情页中的输入图片预览。
+- HEIC 转换、图片压缩、格式转换后的结果查看。
+- 任务记录中的图片缩略图或结果预览。
+- 加载中、加载失败和重新加载状态。
+- 大图缩放、平移和基础 Photo View 体验。
+- 本地图片和后续可能出现的网络图片缓存展示。
+
+使用边界：
+
+- MVP 只使用展示、加载状态、缩放和平移能力。
+- 不把裁剪、旋转、涂鸦、图片编辑器等能力提前做进 MVP。
+- 图片编辑相关能力等进入“调整尺寸、裁剪、移除元数据”等后续功能时再单独评估。
+- 页面仍然只负责展示，图片文件读取、权限和路径处理应由 `file_service`、`photo_service` 或任务系统提供。
+
+实现方式：
+
+- 不在业务页面里直接散落使用 `ExtendedImage`。
+- 在 `shared/widgets/` 下封装项目级图片组件，例如 `MovaImagePreview`、`MovaImageThumbnail`、`MovaZoomableImage`。
+- 业务页面只使用 Mova 自己的图片组件，由组件内部决定是否使用 `extended_image`。
+- 组件统一处理加载中、加载失败、空文件、缩放、平移、圆角、背景色和占位样式。
+- 后续如果替换图片库，只需要修改封装组件，不需要改每个业务页面。
+
+建议组件职责：
+
+```text
+MovaImagePreview
+- 用于工具详情页和结果页的大图预览
+- 支持本地文件、相册文件和后续可能的网络图片
+- 支持加载状态、失败状态、缩放和平移
+
+MovaImageThumbnail
+- 用于任务记录和工具列表中的小图，后续也可用于最近文件
+- 固定尺寸和裁剪方式
+- 失败时展示统一占位
+
+MovaZoomableImage
+- 用于独立图片查看页或结果查看弹层
+- 专注缩放、平移和双击查看
+```
 
 ### 国际化与本地偏好
 
-Mova 设置页包含多语言、主题模式、默认输出位置和首次启动说明，因此需要区分轻量偏好和结构化数据。
+Mova MVP 设置页包含多语言和首次启动说明，后续还可能加入主题模式、默认输出位置等偏好，因此需要区分轻量偏好和结构化数据。
 
 - `flutter_localizations`：使用 Flutter SDK 自带本地化支持。
 - `intl`：用于日期、数字、文件大小、任务时间和多语言文案格式化。
-- `shared_preferences`：用于主题模式、语言、首次启动说明是否展示、默认质量预设等轻量偏好。
+- `shared_preferences`：用于语言、首次启动说明是否展示等轻量偏好。主题模式、默认质量预设和默认输出位置后续再加入。
 
-Drift 负责任务记录、最近文件、工具预设等结构化数据；`shared_preferences` 只负责少量 key-value 设置。不要把任务记录放进 `shared_preferences`，也不要为了一个布尔设置去建 Drift 表。
+Drift 负责任务记录等结构化数据；`shared_preferences` 只负责少量 key-value 设置。不要把任务记录放进 `shared_preferences`，也不要为了一个布尔设置去建 Drift 表。独立最近文件列表、用户自定义工具预设后续再评估。
 
 ### 反馈、支持和应用信息
 
@@ -315,7 +357,7 @@ collection 主要用于：
 - `firstWhereOrNull`、`singleWhereOrNull` 等安全查找。
 - `groupBy`、`mapIndexed` 等常见集合转换。
 - 列表比较、去重、排序和分组等任务处理场景。
-- 让任务记录、最近文件、工具列表、预设列表等逻辑更短、更可读。
+- 让任务记录、工具列表、预设列表等逻辑更短、更可读。
 
 collection 的使用原则：
 
@@ -327,9 +369,9 @@ collection 的使用原则：
 
 Mova 可以适度增加成熟依赖来提高开发效率。这里的原则是：可以为了减少重复劳动而堆库，但不要为了堆库而扩大架构复杂度。
 
-以下版本号按 2026-07-02 在 pub.dev 查询到的最新稳定版本记录。创建 Flutter 项目时可以先按这里写入 `pubspec.yaml`，之后通过 `flutter pub outdated` 定期检查是否有更新。
+以下依赖是候选依赖清单，具体版本需要在 Flutter 工程 spike 后锁定。版本锁定前应确认 Flutter/Dart SDK 兼容性、iOS/Android 构建通过、关键平台能力可用、许可证可接受，并通过 `flutter pub outdated` 检查是否存在明显过期或冲突。
 
-建议现在就加入的依赖：
+候选依赖清单：
 
 ```yaml
 dependencies:
@@ -344,8 +386,11 @@ dependencies:
   photo_manager: ^3.8.3
   permission_handler: ^12.0.3
   share_plus: ^13.2.0
-  receive_sharing_intent: ^1.8.1
   open_filex: ^4.7.0
+  extended_image: ^10.0.1
+  path: ^1.9.1
+  mime: ^2.0.0
+  uuid: ^4.5.3
   url_launcher: ^6.3.2
   shared_preferences: ^2.5.5
   intl: ^0.20.3
@@ -373,13 +418,16 @@ dev_dependencies:
 - `drift`、`drift_flutter`、`path_provider` 和 `drift_dev`：按 Drift 官方 setup 页的 Flutter sqlite3 方案配置，提供类型安全的本地数据库访问、Flutter 平台数据库打开能力、数据库文件目录获取和代码生成。
 - `drift_flutter`：用于 Flutter 场景下简化 SQLite 打开方式和平台配置。
 - `path_provider`：配合 Drift 官方示例获取数据库文件目录，例如 App 文档目录或支持目录。
-- `ffmpeg_kit_extended_flutter`：提供 FFmpeg、FFprobe 和 FFplay 能力，支撑本地媒体转换、压缩、信息读取、日志和进度统计。
-- `file_picker`：提供系统文件选择和系统保存能力。
-- `photo_manager`：提供相册读取、相册保存和相册权限相关能力。
+- `ffmpeg_kit_extended_flutter`：提供 FFmpeg、FFprobe 和 FFplay 能力，支撑本地媒体转换、压缩、预检读取、日志和进度统计。
+- `file_picker`：提供系统文件选择能力；系统保存能力后续小样验证。
+- `photo_manager`：提供相册读取和相册权限相关能力；相册保存能力后续小样验证。
 - `permission_handler`：处理权限检查、权限请求和跳转系统设置。
 - `share_plus`：提供结果文件分享能力。
-- `receive_sharing_intent`：接收其他 App 分享进入的文件。
 - `open_filex`：调用系统能力打开处理结果文件。
+- `extended_image`：提供图片加载状态、失败状态、缩放、平移、预览和缓存展示能力。
+- `path`：处理跨平台路径拼接、文件名、扩展名和输出文件命名。
+- `mime`：辅助输入文件预检、媒体类型识别和分享 MIME type 传递。
+- `uuid`：生成任务、日志和结果文件关联 ID，避免依赖文件名或时间戳做唯一标识。
 - `url_launcher`：打开外部链接、反馈邮件、许可证源码链接和商店页面。
 - `shared_preferences`：保存轻量本地偏好。
 - `intl`：处理本地化文案、日期、数字和文件大小格式化。
@@ -396,16 +444,17 @@ dev_dependencies:
 - `flutter_gen_runner`：等项目出现较多图片、字体、图标等资源文件时再加入。
 - `sqlite3`：当前不直接加入。Drift 的 Flutter sqlite3 方案优先通过 `drift_flutter` 处理底层 SQLite 能力；只有后续需要更底层的自定义打开策略或非标准平台配置时，再评估是否直接引入。
 - `flutter_local_notifications`：等确定需要长任务通知或后台进度提示时再加入。
+- `receive_sharing_intent`：等确定要支持其他 App 分享进入后再加入。
 - `in_app_review`：设置页评价 App 属于后续能力，有一定用户量和商店信息确定后再加入。
 - `in_app_purchase`：MVP 不做付费页、恢复购买或权益管理，后续商业化阶段再加入。
 - 崩溃上报或分析 SDK：MVP 优先保持本地处理和隐私信任，后续需要线上质量监控时再评估。
 
-MVP 前需要继续调研确认的能力：
+进入对应范围前需要继续调研确认的能力：
 
-- 可用存储空间检测。
-- iOS Share Extension 和 App Group 的最小实现方案。
-- 图片处理能力：图片格式转换、压缩、HEIC 处理是使用 FFmpeg、平台能力还是专门图片库。
-- 保存到系统文件时，不同 Android/iOS 版本的目录选择、文件覆盖和权限表现。
+- MVP 前：可用存储空间检测。
+- MVP 前：图片处理能力，尤其是图片格式转换、压缩、HEIC 处理是使用 FFmpeg、平台能力还是专门图片库。
+- 后续输出目标前：保存到系统文件时，不同 Android/iOS 版本的目录选择、文件覆盖和权限表现。
+- 后续输出目标前：保存到相册时，不同 Android/iOS 版本的媒体库权限、相册写入和商店审核表现。
 
 这些能力平台差异较大，不应只因为包名看起来合适就直接定库。优先做小样验证，确认权限、文件路径、相册保存和商店审核风险后再写入正式依赖。
 
@@ -434,23 +483,24 @@ class AppSpacing {
 Drift 首批可以保存以下数据：
 
 - 任务记录：任务 ID、工具类型、输入文件信息、输出文件信息、状态、错误信息、创建时间、完成时间。
-- 最近文件：文件名、路径或平台访问标识、媒体类型、最近使用时间。
-- 用户偏好：默认输出位置、默认质量预设、主题设置、是否显示首次启动说明。
-- 工具预设：用户保存的转换参数、压缩参数、常用输出格式。
+- 用户偏好：语言、是否显示首次启动说明。
 
 不建议早期保存以下内容：
 
 - 大体积媒体文件本体。
 - 可由文件系统或任务执行过程重新生成的大型临时数据。
 - 未经用户授权的敏感文件路径或隐私信息。
+- 独立最近文件列表；MVP 先通过任务记录找回处理过的文件。
+- 默认输出位置、主题设置、默认质量预设；这些设置项后续再加入。
+- 用户自定义工具预设；MVP 的常用输出预设优先用内置静态配置表达。
 
 ## 待确认技术选型
 
 以下选型暂未最终确定，进入实现前需要继续补充：
 
-- 相册读写细节：`photo_manager` 作为首选方案，但仍需小样验证 Android/iOS 权限差异、保存到相册表现和商店审核风险。
+- 相册读取和后续写入细节：`photo_manager` 作为首选方案，但仍需小样验证 Android/iOS 权限差异、保存到相册表现和商店审核风险。
 - Live Photo：后续高价值功能，需确认生成、保存、资源配对和 iOS 平台限制。
-- 分享进入细节：`receive_sharing_intent` 作为首选方案，但仍需验证 Android 分享 Intent、iOS Share Extension 和 App Group 配置。
+- 分享进入细节：后续再评估 `receive_sharing_intent` 或自定义原生实现，并验证 Android 分享 Intent、iOS Share Extension 和 App Group 配置。
 - 打开文件和输出位置：`open_filex` 作为打开文件首选方案，但打开系统文件位置和文件不存在时的恢复策略仍需验证。
 - 可用存储空间检测：任务开始前估算空间不足风险。
 - 图片处理能力：图片格式转换、压缩、HEIC 处理是使用 FFmpeg、平台能力还是专门图片库。
@@ -493,11 +543,10 @@ lib/
 │   ├── media_service.dart  # 媒体处理能力封装
 │   ├── task_runner.dart    # 任务执行、进度解析、取消和结果回写
 │   ├── command_builder.dart
-│   ├── file_service.dart   # 文件选择、保存、路径处理
-│   ├── photo_service.dart  # 相册读取和保存
+│   ├── file_service.dart   # 文件选择、App 内结果路径处理
+│   ├── photo_service.dart  # 相册读取，保存能力后续验证
 │   ├── permission_service.dart
 │   ├── share_service.dart
-│   ├── receive_share_service.dart
 │   ├── open_file_service.dart
 │   ├── app_info_service.dart
 │   └── feedback_service.dart
@@ -511,6 +560,9 @@ lib/
 │   └── image/
 └── shared/
     ├── widgets/            # 通用 UI 组件
+    │   ├── mova_image_preview.dart
+    │   ├── mova_image_thumbnail.dart
+    │   └── mova_zoomable_image.dart
     ├── models/             # 多功能共享模型
     └── tool_registry/      # 工具定义和工具注册表
 ```
