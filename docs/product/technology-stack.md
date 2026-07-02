@@ -46,6 +46,30 @@ MVP 核心闭环必须始终围绕这一条链路实现：
 
 系统实现上不要把预检、默认输出目标和任务记录创建暴露成额外用户步骤。它们是后台流程，不是用户每次必须确认的页面。
 
+## 项目级开发 Skill
+
+本项目内置 `flutter-development` skill：
+
+```text
+.codex/skills/flutter-development/
+├── SKILL.md
+├── references/
+└── templates/
+```
+
+团队成员拉取仓库后，可以在支持项目级 `.codex/skills` 的 Codex 环境中直接使用该 skill。本文档已按该 skill 的 Flutter 实施建议做项目化约束：
+
+- 使用 Flutter widget 组合构建页面。
+- 使用 Material 3。
+- 使用 go_router 管理路由。
+- 使用显式状态管理。
+- 页面必须覆盖 loading、empty、error、success 状态。
+- 不在 `build()` 中执行文件选择、数据库写入、FFmpeg、网络或权限请求。
+- 优先拆分可读 widget，不把完整复杂页面堆在一个 `build()` 方法里。
+- 自定义 widget 必须有清晰命名和必要注释。
+
+注意：该 skill 的示例使用 Provider。Mova 不采用 Provider，统一使用 Riverpod。遇到 skill 示例中的 `ChangeNotifier`、`Consumer<Provider>`、`Provider.of`，实现时应转换为 Riverpod 的 `Notifier/AsyncNotifier`、`ref.watch`、`ref.read`。
+
 ## 已确定技术栈
 
 ### 应用框架
@@ -683,6 +707,86 @@ MVP 不实现主题切换。`buildDarkTheme()` 后续再加。
 - Material 3 生效。
 - 路由、数据库、service 不在 Widget build 中重复创建。
 
+## Flutter 页面实施规范
+
+页面默认使用 `ConsumerWidget` 或 `ConsumerStatefulWidget`。
+
+使用 `ConsumerWidget`：
+
+- 页面只依赖 provider state。
+- 无本地动画控制器。
+- 无 `TextEditingController`、`ScrollController` 等生命周期对象。
+
+使用 `ConsumerStatefulWidget`：
+
+- 页面需要 `AnimationController`。
+- 页面需要 `TextEditingController`、`ScrollController`、`FocusNode`。
+- 页面需要 `initState` 触发一次性 UI 初始化。
+
+页面模板：
+
+```dart
+class ToolDetailPage extends ConsumerWidget {
+  const ToolDetailPage({required this.toolId, super.key});
+
+  final String toolId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(toolFlowControllerProvider(toolId));
+    final controller = ref.read(toolFlowControllerProvider(toolId).notifier);
+
+    ref.listen(toolFlowControllerProvider(toolId), (previous, next) {
+      // Only UI side effects: snack bar, dialog, navigation.
+    });
+
+    return Scaffold(
+      appBar: AppBar(title: Text(state.tool.title)),
+      body: ToolDetailContent(
+        state: state,
+        onSelectFiles: controller.selectFiles,
+        onStart: controller.startTasks,
+      ),
+    );
+  }
+}
+```
+
+页面拆分规则：
+
+- `build()` 超过 120 行时，拆出私有 widget 或 `widgets/` 文件。
+- 同一 UI 片段被复用 2 次以上时，拆成 widget。
+- 列表 item 必须拆成独立 widget。
+- 表单参数项必须拆成独立 widget。
+- `ref.listen` 只处理 SnackBar、Dialog、Navigation，不写业务逻辑。
+
+状态展示规则：
+
+```text
+initial/loading -> loading indicator 或 skeleton
+empty -> 空状态说明和主操作
+error -> 用户可理解错误 + 恢复操作
+success -> 内容
+running -> 进度 + 取消入口
+```
+
+性能规则：
+
+- 能 `const` 的 widget 必须 `const`。
+- 长列表使用 `ListView.builder`。
+- 图片缩略图固定尺寸，避免列表跳动。
+- 不在 `build()` 中创建数据库、controller、service、Future。
+- 不在 `build()` 中调用文件选择、权限请求、FFmpeg 或分享。
+- 大对象和 service 通过 provider 创建。
+
+响应式规则：
+
+- 页面内容使用 `SafeArea`。
+- 主内容横向最大宽度建议 640。
+- 工具列表在宽屏可切换为 2 列，手机默认 1 列。
+- 按钮文字必须在小屏不溢出。
+- 任务列表 item 高度保持稳定。
+
 ## 工程目录和文件职责
 
 首版目录必须按下面结构创建。没有业务逻辑的空目录可以暂缓，但核心边界要保持一致。
@@ -1089,6 +1193,21 @@ final controller = ref.read(toolFlowControllerProvider(toolId).notifier);
 - 路由参数只传 `toolId`、`taskId`，不要把完整对象塞进路由。
 - 页面需要对象时通过 registry、repository 或 controller 读取。
 
+路由 provider：
+
+```dart
+@Riverpod(keepAlive: true)
+GoRouter appRouter(Ref ref) {
+  return GoRouter(
+    initialLocation: AppPaths.home,
+    routes: [
+      // ShellRoute for Home / Tasks / Settings.
+    ],
+    errorBuilder: (context, state) => RouteErrorPage(error: state.error),
+  );
+}
+```
+
 首版路由命名：
 
 ```dart
@@ -1131,6 +1250,14 @@ context.goNamed(AppRoutes.taskResult, pathParameters: {'taskId': taskId});
 - unknown `toolId`：展示工具不存在页，提供返回首页。
 - missing `taskId`：返回任务页。
 - task not found：展示记录不存在，提供返回任务页。
+
+路由验收：
+
+- 底部导航切换后保留当前 tab 状态。
+- 工具详情刷新后能通过 `toolId` 恢复。
+- 任务详情重进 App 后从 Drift 加载。
+- 无效路由进入错误页，不崩溃。
+- 结果页只依赖 `taskId`，不依赖内存对象。
 
 ## 工具注册表实施
 
