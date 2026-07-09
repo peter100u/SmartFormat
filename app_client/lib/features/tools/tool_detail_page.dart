@@ -28,6 +28,28 @@ class ToolDetailPage extends ConsumerWidget {
             icon: const Icon(Icons.file_open_outlined),
             label: const Text('选择文件'),
           ),
+          if (state.selectedFiles.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            Text('已选文件', style: Theme.of(context).textTheme.titleMedium),
+            if (state.selectionSourceLabel != null) ...[
+              const SizedBox(height: 4),
+              Text('来源：${state.selectionSourceLabel}'),
+            ],
+            const SizedBox(height: 8),
+            for (final file in state.selectedFiles)
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.insert_drive_file_outlined),
+                title: Text(file.displayName),
+                subtitle: Text(file.path ?? '仅保留文件句柄'),
+              ),
+          ],
+          if (state.commandPreview != null) ...[
+            const SizedBox(height: 16),
+            Text('命令预览', style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: 8),
+            SelectableText(state.commandPreview!),
+          ],
           const SizedBox(height: 16),
           Text('推荐参数', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
@@ -51,7 +73,9 @@ class ToolDetailPage extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           FilledButton(
-            onPressed: state.isStarting ? null : controller.startTasks,
+            onPressed: state.isStarting || state.selectedFiles.isEmpty
+                ? null
+                : controller.startTasks,
             child: const Text('开始任务'),
           ),
         ],

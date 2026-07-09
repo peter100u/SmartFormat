@@ -6,7 +6,7 @@
 
 **Architecture:** Add a lightweight settings feature layer with a controller/state pair, detail pages for language/about/version, and small services for locale persistence, app info, feedback launch, placeholder URL launching, and cache cleanup. Keep side effects in services, keep UI declarative, and use explicit go_router routes only for in-app detail screens.
 
-**Tech Stack:** Flutter, Riverpod, go_router, shared_preferences, package_info_plus, url_launcher, path_provider, flutter_test
+**Tech Stack:** Flutter, Riverpod, go_router, hive_ce, package_info_plus, url_launcher, path_provider, flutter_test
 
 ---
 

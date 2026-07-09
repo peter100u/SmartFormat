@@ -314,6 +314,132 @@ abstract class AppLocalizations {
   /// **'暂时无法打开这个页面。'**
   String get routeErrorMessage;
 
+  /// 任务页标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'任务'**
+  String get tasksTitle;
+
+  /// 任务列表为空时的标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有任务'**
+  String get tasksEmptyTitle;
+
+  /// 任务列表为空时的说明文本。
+  ///
+  /// In zh, this message translates to:
+  /// **'完成转换后，处理记录会显示在这里。'**
+  String get tasksEmptyMessage;
+
+  /// 任务详情页标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'任务详情'**
+  String get taskDetailTitle;
+
+  /// 任务结果页标题。
+  ///
+  /// In zh, this message translates to:
+  /// **'结果'**
+  String get taskResultTitle;
+
+  /// 找不到任务记录时显示的兜底文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'这个任务记录已经不存在了。'**
+  String get taskMissingMessage;
+
+  /// 任务状态字段标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'状态'**
+  String get taskStatusLabel;
+
+  /// 任务进度字段标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'进度'**
+  String get taskProgressLabel;
+
+  /// 任务输入文件字段标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'输入文件'**
+  String get taskInputPathLabel;
+
+  /// 任务输出文件字段标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'输出文件'**
+  String get taskOutputPathLabel;
+
+  /// 任务错误信息字段标签。
+  ///
+  /// In zh, this message translates to:
+  /// **'错误信息'**
+  String get taskErrorLabel;
+
+  /// 取消任务的按钮文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'取消'**
+  String get taskCancelAction;
+
+  /// 重试失败任务的按钮文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'重试'**
+  String get taskRetryAction;
+
+  /// 删除任务记录的按钮文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'删除'**
+  String get taskDeleteAction;
+
+  /// 打开结果文件的按钮文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'打开'**
+  String get taskOpenAction;
+
+  /// 分享结果文件的按钮文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'分享'**
+  String get taskShareAction;
+
+  /// 排队中的任务状态文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'排队中'**
+  String get taskStatusQueued;
+
+  /// 执行中的任务状态文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'处理中'**
+  String get taskStatusRunning;
+
+  /// 成功完成的任务状态文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'已完成'**
+  String get taskStatusSucceeded;
+
+  /// 失败任务的状态文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'失败'**
+  String get taskStatusFailed;
+
+  /// 已取消任务的状态文案。
+  ///
+  /// In zh, this message translates to:
+  /// **'已取消'**
+  String get taskStatusCancelled;
+
   /// 内嵌网页刷新按钮提示。
   ///
   /// In zh, this message translates to:

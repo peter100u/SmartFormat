@@ -1,3 +1,4 @@
+import 'package:ffmpeg_kit_extended_flutter/ffmpeg_kit_extended_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
@@ -9,6 +10,7 @@ import 'shared/models/task_models.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FFmpegKitExtended.initialize();
   await Hive.initFlutter();
   Hive.registerAdapters();
   await Hive.openBox<TaskRecord>(AppConstants.taskRecordsBoxName);

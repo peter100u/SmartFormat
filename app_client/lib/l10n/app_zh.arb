@@ -150,6 +150,90 @@
   "@routeErrorMessage": {
     "description": "路由兜底错误页说明文本。"
   },
+  "tasksTitle": "任务",
+  "@tasksTitle": {
+    "description": "任务页标题。"
+  },
+  "tasksEmptyTitle": "还没有任务",
+  "@tasksEmptyTitle": {
+    "description": "任务列表为空时的标题。"
+  },
+  "tasksEmptyMessage": "完成转换后，处理记录会显示在这里。",
+  "@tasksEmptyMessage": {
+    "description": "任务列表为空时的说明文本。"
+  },
+  "taskDetailTitle": "任务详情",
+  "@taskDetailTitle": {
+    "description": "任务详情页标题。"
+  },
+  "taskResultTitle": "结果",
+  "@taskResultTitle": {
+    "description": "任务结果页标题。"
+  },
+  "taskMissingMessage": "这个任务记录已经不存在了。",
+  "@taskMissingMessage": {
+    "description": "找不到任务记录时显示的兜底文案。"
+  },
+  "taskStatusLabel": "状态",
+  "@taskStatusLabel": {
+    "description": "任务状态字段标签。"
+  },
+  "taskProgressLabel": "进度",
+  "@taskProgressLabel": {
+    "description": "任务进度字段标签。"
+  },
+  "taskInputPathLabel": "输入文件",
+  "@taskInputPathLabel": {
+    "description": "任务输入文件字段标签。"
+  },
+  "taskOutputPathLabel": "输出文件",
+  "@taskOutputPathLabel": {
+    "description": "任务输出文件字段标签。"
+  },
+  "taskErrorLabel": "错误信息",
+  "@taskErrorLabel": {
+    "description": "任务错误信息字段标签。"
+  },
+  "taskCancelAction": "取消",
+  "@taskCancelAction": {
+    "description": "取消任务的按钮文案。"
+  },
+  "taskRetryAction": "重试",
+  "@taskRetryAction": {
+    "description": "重试失败任务的按钮文案。"
+  },
+  "taskDeleteAction": "删除",
+  "@taskDeleteAction": {
+    "description": "删除任务记录的按钮文案。"
+  },
+  "taskOpenAction": "打开",
+  "@taskOpenAction": {
+    "description": "打开结果文件的按钮文案。"
+  },
+  "taskShareAction": "分享",
+  "@taskShareAction": {
+    "description": "分享结果文件的按钮文案。"
+  },
+  "taskStatusQueued": "排队中",
+  "@taskStatusQueued": {
+    "description": "排队中的任务状态文案。"
+  },
+  "taskStatusRunning": "处理中",
+  "@taskStatusRunning": {
+    "description": "执行中的任务状态文案。"
+  },
+  "taskStatusSucceeded": "已完成",
+  "@taskStatusSucceeded": {
+    "description": "成功完成的任务状态文案。"
+  },
+  "taskStatusFailed": "失败",
+  "@taskStatusFailed": {
+    "description": "失败任务的状态文案。"
+  },
+  "taskStatusCancelled": "已取消",
+  "@taskStatusCancelled": {
+    "description": "已取消任务的状态文案。"
+  },
   "webViewRefreshTooltip": "刷新",
   "@webViewRefreshTooltip": {
     "description": "内嵌网页刷新按钮提示。"

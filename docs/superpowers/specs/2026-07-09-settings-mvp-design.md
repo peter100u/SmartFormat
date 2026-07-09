@@ -108,7 +108,7 @@ This setting must be controlled by Mova itself, not by the device system languag
 
 Use:
 
-- `shared_preferences` to persist selected locale
+- the existing `PreferencesService` backed by the `app_preferences` Hive box to persist selected locale
 - a Riverpod-backed app locale provider
 - `MaterialApp.router(locale: ...)` to apply the chosen locale
 
@@ -165,7 +165,7 @@ Safe cleanup targets:
 
 Do not delete:
 
-- Drift database
+- task history Hive box
 - app documents directory
 - task history metadata
 

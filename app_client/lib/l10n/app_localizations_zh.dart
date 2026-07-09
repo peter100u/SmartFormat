@@ -119,6 +119,69 @@ class AppLocalizationsZh extends AppLocalizations {
   String get routeErrorMessage => '暂时无法打开这个页面。';
 
   @override
+  String get tasksTitle => '任务';
+
+  @override
+  String get tasksEmptyTitle => '还没有任务';
+
+  @override
+  String get tasksEmptyMessage => '完成转换后，处理记录会显示在这里。';
+
+  @override
+  String get taskDetailTitle => '任务详情';
+
+  @override
+  String get taskResultTitle => '结果';
+
+  @override
+  String get taskMissingMessage => '这个任务记录已经不存在了。';
+
+  @override
+  String get taskStatusLabel => '状态';
+
+  @override
+  String get taskProgressLabel => '进度';
+
+  @override
+  String get taskInputPathLabel => '输入文件';
+
+  @override
+  String get taskOutputPathLabel => '输出文件';
+
+  @override
+  String get taskErrorLabel => '错误信息';
+
+  @override
+  String get taskCancelAction => '取消';
+
+  @override
+  String get taskRetryAction => '重试';
+
+  @override
+  String get taskDeleteAction => '删除';
+
+  @override
+  String get taskOpenAction => '打开';
+
+  @override
+  String get taskShareAction => '分享';
+
+  @override
+  String get taskStatusQueued => '排队中';
+
+  @override
+  String get taskStatusRunning => '处理中';
+
+  @override
+  String get taskStatusSucceeded => '已完成';
+
+  @override
+  String get taskStatusFailed => '失败';
+
+  @override
+  String get taskStatusCancelled => '已取消';
+
+  @override
   String get webViewRefreshTooltip => '刷新';
 
   @override

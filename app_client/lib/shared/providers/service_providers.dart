@@ -14,6 +14,7 @@ import '../../services/photo_service.dart';
 import '../../services/share_service.dart';
 import '../../services/task_runner.dart';
 import 'database_providers.dart';
+import 'logging_providers.dart';
 import 'repository_providers.dart';
 
 /// 声明 controller 和 repository 会使用到的 service 依赖。
@@ -27,7 +28,7 @@ final commandBuilderProvider = Provider<CommandBuilder>((ref) {
 });
 
 final mediaServiceProvider = Provider<MediaService>((ref) {
-  return const MediaService();
+  return MediaService(logger: ref.watch(loggerProvider));
 });
 
 final taskRunnerProvider = Provider<TaskRunner>((ref) {
@@ -35,6 +36,7 @@ final taskRunnerProvider = Provider<TaskRunner>((ref) {
     mediaService: ref.watch(mediaServiceProvider),
     taskRepository: ref.watch(taskRepositoryProvider),
     commandBuilder: ref.watch(commandBuilderProvider),
+    logger: ref.watch(loggerProvider),
   );
 });
 

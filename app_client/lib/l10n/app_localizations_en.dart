@@ -123,6 +123,69 @@ class AppLocalizationsEn extends AppLocalizations {
   String get routeErrorMessage => 'Unable to open this page right now.';
 
   @override
+  String get tasksTitle => 'Tasks';
+
+  @override
+  String get tasksEmptyTitle => 'No tasks yet';
+
+  @override
+  String get tasksEmptyMessage => 'Finished conversions will appear here.';
+
+  @override
+  String get taskDetailTitle => 'Task Details';
+
+  @override
+  String get taskResultTitle => 'Result';
+
+  @override
+  String get taskMissingMessage => 'This task is no longer available.';
+
+  @override
+  String get taskStatusLabel => 'Status';
+
+  @override
+  String get taskProgressLabel => 'Progress';
+
+  @override
+  String get taskInputPathLabel => 'Input File';
+
+  @override
+  String get taskOutputPathLabel => 'Output File';
+
+  @override
+  String get taskErrorLabel => 'Error';
+
+  @override
+  String get taskCancelAction => 'Cancel';
+
+  @override
+  String get taskRetryAction => 'Retry';
+
+  @override
+  String get taskDeleteAction => 'Delete';
+
+  @override
+  String get taskOpenAction => 'Open';
+
+  @override
+  String get taskShareAction => 'Share';
+
+  @override
+  String get taskStatusQueued => 'Queued';
+
+  @override
+  String get taskStatusRunning => 'Running';
+
+  @override
+  String get taskStatusSucceeded => 'Completed';
+
+  @override
+  String get taskStatusFailed => 'Failed';
+
+  @override
+  String get taskStatusCancelled => 'Cancelled';
+
+  @override
   String get webViewRefreshTooltip => 'Refresh';
 
   @override

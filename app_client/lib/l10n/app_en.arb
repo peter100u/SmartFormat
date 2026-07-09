@@ -150,6 +150,90 @@
   "@routeErrorMessage": {
     "description": "Body text shown on the fallback route error page."
   },
+  "tasksTitle": "Tasks",
+  "@tasksTitle": {
+    "description": "Title shown on the tasks page."
+  },
+  "tasksEmptyTitle": "No tasks yet",
+  "@tasksEmptyTitle": {
+    "description": "Empty state title shown when no task history exists."
+  },
+  "tasksEmptyMessage": "Finished conversions will appear here.",
+  "@tasksEmptyMessage": {
+    "description": "Empty state body shown when no task history exists."
+  },
+  "taskDetailTitle": "Task Details",
+  "@taskDetailTitle": {
+    "description": "Title shown on the task detail page."
+  },
+  "taskResultTitle": "Result",
+  "@taskResultTitle": {
+    "description": "Title shown on the task result page."
+  },
+  "taskMissingMessage": "This task is no longer available.",
+  "@taskMissingMessage": {
+    "description": "Fallback text shown when a task record cannot be found."
+  },
+  "taskStatusLabel": "Status",
+  "@taskStatusLabel": {
+    "description": "Label for the task status field."
+  },
+  "taskProgressLabel": "Progress",
+  "@taskProgressLabel": {
+    "description": "Label for the task progress field."
+  },
+  "taskInputPathLabel": "Input File",
+  "@taskInputPathLabel": {
+    "description": "Label for the task input file field."
+  },
+  "taskOutputPathLabel": "Output File",
+  "@taskOutputPathLabel": {
+    "description": "Label for the task output file field."
+  },
+  "taskErrorLabel": "Error",
+  "@taskErrorLabel": {
+    "description": "Label for the task error field."
+  },
+  "taskCancelAction": "Cancel",
+  "@taskCancelAction": {
+    "description": "Action label for cancelling a task."
+  },
+  "taskRetryAction": "Retry",
+  "@taskRetryAction": {
+    "description": "Action label for retrying a failed task."
+  },
+  "taskDeleteAction": "Delete",
+  "@taskDeleteAction": {
+    "description": "Action label for deleting a task record."
+  },
+  "taskOpenAction": "Open",
+  "@taskOpenAction": {
+    "description": "Action label for opening a generated result file."
+  },
+  "taskShareAction": "Share",
+  "@taskShareAction": {
+    "description": "Action label for sharing a generated result file."
+  },
+  "taskStatusQueued": "Queued",
+  "@taskStatusQueued": {
+    "description": "Human-readable status label for queued tasks."
+  },
+  "taskStatusRunning": "Running",
+  "@taskStatusRunning": {
+    "description": "Human-readable status label for running tasks."
+  },
+  "taskStatusSucceeded": "Completed",
+  "@taskStatusSucceeded": {
+    "description": "Human-readable status label for succeeded tasks."
+  },
+  "taskStatusFailed": "Failed",
+  "@taskStatusFailed": {
+    "description": "Human-readable status label for failed tasks."
+  },
+  "taskStatusCancelled": "Cancelled",
+  "@taskStatusCancelled": {
+    "description": "Human-readable status label for cancelled tasks."
+  },
   "webViewRefreshTooltip": "Refresh",
   "@webViewRefreshTooltip": {
     "description": "Tooltip for refreshing the embedded web view."

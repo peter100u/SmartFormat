@@ -26,7 +26,7 @@ Mova 需要在产品内清楚说明媒体处理能力所依赖的开源组件、
 「许可证」页面应覆盖以下信息：
 
 - Mova 使用的开源组件说明。
-- FFmpegKit Extended base 构建说明。
+- FFmpegKit Extended base 小包构建说明。
 - FFmpeg、FFmpegKit 及第三方媒体库与 Mova 的关系说明。
 - 当前构建的许可证状态。
 - 第三方许可证文本入口。
@@ -47,7 +47,7 @@ Mova 后续如果推出高级版，收费对象应是本应用提供的多文件
 
 ## 构建信息表达
 
-当前开发阶段以 `ffmpeg_kit_extended_flutter` 的 `base` 构建为基础。页面中应展示实际发布包的构建信息，而不是只写笼统说明。
+当前开发阶段以 `ffmpeg_kit_extended_flutter` 的 `base` 小包构建为基础，目标配置为 `type: "base"`, `gpl: false`, `small: true`。页面中应展示实际发布包的构建信息，而不是只写笼统说明。
 
 建议结构：
 
@@ -60,16 +60,10 @@ GPL 组件：按实际构建配置显示 是/否
 版本：显示实际集成版本号
 ```
 
-如果实际配置为 `base` 且 `gpl: false`，建议表达为：
+按当前目标配置，建议表达为：
 
 ```text
 本应用当前开发阶段使用 FFmpegKit Extended 的 base 构建版本。该构建以基础 FFmpeg 能力为主，具体许可证取决于实际启用的组件。我们会在本页面列出当前版本使用的组件、许可证文本和源码获取方式。
-```
-
-如果实际配置为 `base + gpl: true`，建议表达为：
-
-```text
-本应用使用包含 GPL 组件的 FFmpegKit Extended base 构建版本，并按 GPLv3 及相关许可证要求提供许可证文本、组件清单和源码获取方式。
 ```
 
 上线前必须用实际构建产物确认 GPL 状态，不能只按产品规划填写。
@@ -81,13 +75,13 @@ GPL 组件：按实际构建配置显示 是/否
 ```text
 FFmpegKit Extended
 用途：连接 Flutter App 与 FFmpeg 媒体处理能力
-构建版本：full
-许可证：按实际构建配置显示 LGPLv3 / GPLv3 及相关第三方许可证
+构建版本：base（small package）
+许可证：当前目标配置按非 GPL 构建处理，页面中仍应展示实际集成版本对应的 LGPLv3 / 第三方许可证信息
 项目地址：https://pub.dev/packages/ffmpeg_kit_extended_flutter
 
 FFmpeg
 用途：本地音视频格式转换、压缩、提取和文件预检分析
-许可证：按实际构建配置显示 LGPL / GPL 及相关第三方许可证
+许可证：按当前非 GPL 目标配置展示实际启用组件对应的 LGPL / 第三方许可证信息
 官网：https://ffmpeg.org
 许可证说明：https://ffmpeg.org/legal.html
 ```
@@ -188,4 +182,4 @@ FFmpeg 高级版
 
 ## 备注
 
-本文档是产品和实现层面的许可证披露方案，不构成法律意见。正式上架前，尤其在启用 GPL 组件、使用自建二进制或进入海外应用商店分发时，应进行一次开源合规审阅。
+本文档是产品和实现层面的许可证披露方案，不构成法律意见。正式上架前，尤其在调整 GPL 状态、使用自建二进制或进入海外应用商店分发时，应进行一次开源合规审阅。
