@@ -1,51 +1,181 @@
 {
   "@@locale": "zh",
   "appTitle": "Mova",
+  "@appTitle": {
+    "description": "应用名称，显示在应用框架和标题位置。"
+  },
   "navHome": "首页",
+  "@navHome": {
+    "description": "底部导航中首页标签。"
+  },
   "navTasks": "任务",
+  "@navTasks": {
+    "description": "底部导航中任务页标签。"
+  },
   "navSettings": "设置",
+  "@navSettings": {
+    "description": "底部导航中设置页标签。"
+  },
   "settingsTitle": "设置",
+  "@settingsTitle": {
+    "description": "设置页标题。"
+  },
   "settingsGeneral": "通用",
+  "@settingsGeneral": {
+    "description": "通用设置分组标题。"
+  },
   "settingsLanguage": "多语言",
+  "@settingsLanguage": {
+    "description": "语言设置入口标签。"
+  },
   "settingsSupport": "支持",
+  "@settingsSupport": {
+    "description": "支持相关分组标题。"
+  },
   "settingsFeedback": "意见反馈",
+  "@settingsFeedback": {
+    "description": "反馈入口标签。"
+  },
   "settingsFeedbackSubtitle": "发送问题和建议",
+  "@settingsFeedbackSubtitle": {
+    "description": "反馈入口副标题。"
+  },
   "settingsPrivacyAndLegal": "隐私与法律",
+  "@settingsPrivacyAndLegal": {
+    "description": "隐私与法律分组标题。"
+  },
   "settingsPrivacyPolicy": "隐私政策",
+  "@settingsPrivacyPolicy": {
+    "description": "隐私政策页面入口标签。"
+  },
   "settingsUserAgreement": "用户协议",
+  "@settingsUserAgreement": {
+    "description": "用户协议页面入口标签。"
+  },
   "settingsLicense": "许可证",
+  "@settingsLicense": {
+    "description": "许可证页面入口标签。"
+  },
   "settingsLicenseSubtitle": "开源组件、FFmpegKit 和第三方许可说明",
+  "@settingsLicenseSubtitle": {
+    "description": "许可证入口副标题。"
+  },
   "settingsStorage": "存储",
+  "@settingsStorage": {
+    "description": "存储设置分组标题。"
+  },
   "settingsClearCache": "清理缓存",
+  "@settingsClearCache": {
+    "description": "清理缓存操作标签。"
+  },
   "settingsAboutSection": "关于",
+  "@settingsAboutSection": {
+    "description": "关于应用分组标题。"
+  },
   "settingsAppVersion": "App 版本",
+  "@settingsAppVersion": {
+    "description": "应用版本页面入口标签。"
+  },
   "settingsAboutMova": "关于 Mova",
+  "@settingsAboutMova": {
+    "description": "关于 Mova 页面入口标签。"
+  },
   "languageChinese": "中文",
+  "@languageChinese": {
+    "description": "中文语言选项标签。"
+  },
   "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "英文语言选项标签。"
+  },
   "aboutMovaDescription": "Mova 是一款面向普通用户的现代格式工厂。",
+  "@aboutMovaDescription": {
+    "description": "关于 Mova 页面中的说明文本。"
+  },
   "appVersionLabel": "版本",
+  "@appVersionLabel": {
+    "description": "应用版本字段标签。"
+  },
   "appBuildNumberLabel": "构建号",
+  "@appBuildNumberLabel": {
+    "description": "应用构建号字段标签。"
+  },
   "appPackageNameLabel": "包名",
+  "@appPackageNameLabel": {
+    "description": "应用包名字段标签。"
+  },
   "feedbackUnavailableMessage": "暂时无法打开邮件应用。",
+  "@feedbackUnavailableMessage": {
+    "description": "无法打开邮件应用时显示的提示。"
+  },
   "legalUnavailableMessage": "暂时无法打开占位链接。",
+  "@legalUnavailableMessage": {
+    "description": "无法打开法律相关占位链接时显示的提示。"
+  },
   "cacheClearConfirmTitle": "清理缓存",
+  "@cacheClearConfirmTitle": {
+    "description": "清理缓存确认弹窗标题。"
+  },
   "cacheClearConfirmMessage": "这会删除临时文件和缓存，但会保留任务记录。",
+  "@cacheClearConfirmMessage": {
+    "description": "清理缓存确认弹窗说明文本。"
+  },
   "cacheClearConfirmAction": "清理",
+  "@cacheClearConfirmAction": {
+    "description": "确认清理缓存按钮标签。"
+  },
   "cacheClearCancelledAction": "取消",
+  "@cacheClearCancelledAction": {
+    "description": "取消清理缓存按钮标签。"
+  },
   "cacheClearSuccessMessage": "已清理 {size} 缓存。",
   "@cacheClearSuccessMessage": {
+    "description": "清理缓存成功后显示的提示。",
     "placeholders": {
-      "size": {}
+      "size": {
+        "type": "String",
+        "example": "42 MB"
+      }
     }
   },
   "cacheClearErrorMessage": "暂时无法清理缓存。",
+  "@cacheClearErrorMessage": {
+    "description": "清理缓存失败时显示的提示。"
+  },
   "routeErrorTitle": "页面不存在",
+  "@routeErrorTitle": {
+    "description": "路由兜底错误页标题。"
+  },
   "routeErrorMessage": "暂时无法打开这个页面。",
+  "@routeErrorMessage": {
+    "description": "路由兜底错误页说明文本。"
+  },
   "webViewRefreshTooltip": "刷新",
+  "@webViewRefreshTooltip": {
+    "description": "内嵌网页刷新按钮提示。"
+  },
   "webViewLoadFailedTitle": "页面加载失败",
+  "@webViewLoadFailedTitle": {
+    "description": "内嵌网页加载失败时的标题。"
+  },
   "webViewRetryAction": "重试",
+  "@webViewRetryAction": {
+    "description": "内嵌网页加载失败后的重试按钮标签。"
+  },
   "webViewBackAction": "后退",
+  "@webViewBackAction": {
+    "description": "内嵌网页后退按钮标签。"
+  },
   "webViewForwardAction": "前进",
+  "@webViewForwardAction": {
+    "description": "内嵌网页前进按钮标签。"
+  },
   "webViewBlockedDomainMessage": "这个链接不在受信任域名列表中。",
-  "webViewExternalOpenFailedMessage": "暂时无法打开外部链接。"
+  "@webViewBlockedDomainMessage": {
+    "description": "访问未受信任域名时显示的提示。"
+  },
+  "webViewExternalOpenFailedMessage": "暂时无法打开外部链接。",
+  "@webViewExternalOpenFailedMessage": {
+    "description": "无法打开外部链接时显示的提示。"
+  }
 }

@@ -105,7 +105,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get cacheClearCancelledAction => '取消';
 
   @override
-  String cacheClearSuccessMessage(Object size) {
+  String cacheClearSuccessMessage(String size) {
     return '已清理 $size 缓存。';
   }
 

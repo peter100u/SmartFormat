@@ -98,259 +98,259 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
-  /// No description provided for @appTitle.
+  /// 应用名称，显示在应用框架和标题位置。
   ///
   /// In zh, this message translates to:
   /// **'Mova'**
   String get appTitle;
 
-  /// No description provided for @navHome.
+  /// 底部导航中首页标签。
   ///
   /// In zh, this message translates to:
   /// **'首页'**
   String get navHome;
 
-  /// No description provided for @navTasks.
+  /// 底部导航中任务页标签。
   ///
   /// In zh, this message translates to:
   /// **'任务'**
   String get navTasks;
 
-  /// No description provided for @navSettings.
+  /// 底部导航中设置页标签。
   ///
   /// In zh, this message translates to:
   /// **'设置'**
   String get navSettings;
 
-  /// No description provided for @settingsTitle.
+  /// 设置页标题。
   ///
   /// In zh, this message translates to:
   /// **'设置'**
   String get settingsTitle;
 
-  /// No description provided for @settingsGeneral.
+  /// 通用设置分组标题。
   ///
   /// In zh, this message translates to:
   /// **'通用'**
   String get settingsGeneral;
 
-  /// No description provided for @settingsLanguage.
+  /// 语言设置入口标签。
   ///
   /// In zh, this message translates to:
   /// **'多语言'**
   String get settingsLanguage;
 
-  /// No description provided for @settingsSupport.
+  /// 支持相关分组标题。
   ///
   /// In zh, this message translates to:
   /// **'支持'**
   String get settingsSupport;
 
-  /// No description provided for @settingsFeedback.
+  /// 反馈入口标签。
   ///
   /// In zh, this message translates to:
   /// **'意见反馈'**
   String get settingsFeedback;
 
-  /// No description provided for @settingsFeedbackSubtitle.
+  /// 反馈入口副标题。
   ///
   /// In zh, this message translates to:
   /// **'发送问题和建议'**
   String get settingsFeedbackSubtitle;
 
-  /// No description provided for @settingsPrivacyAndLegal.
+  /// 隐私与法律分组标题。
   ///
   /// In zh, this message translates to:
   /// **'隐私与法律'**
   String get settingsPrivacyAndLegal;
 
-  /// No description provided for @settingsPrivacyPolicy.
+  /// 隐私政策页面入口标签。
   ///
   /// In zh, this message translates to:
   /// **'隐私政策'**
   String get settingsPrivacyPolicy;
 
-  /// No description provided for @settingsUserAgreement.
+  /// 用户协议页面入口标签。
   ///
   /// In zh, this message translates to:
   /// **'用户协议'**
   String get settingsUserAgreement;
 
-  /// No description provided for @settingsLicense.
+  /// 许可证页面入口标签。
   ///
   /// In zh, this message translates to:
   /// **'许可证'**
   String get settingsLicense;
 
-  /// No description provided for @settingsLicenseSubtitle.
+  /// 许可证入口副标题。
   ///
   /// In zh, this message translates to:
   /// **'开源组件、FFmpegKit 和第三方许可说明'**
   String get settingsLicenseSubtitle;
 
-  /// No description provided for @settingsStorage.
+  /// 存储设置分组标题。
   ///
   /// In zh, this message translates to:
   /// **'存储'**
   String get settingsStorage;
 
-  /// No description provided for @settingsClearCache.
+  /// 清理缓存操作标签。
   ///
   /// In zh, this message translates to:
   /// **'清理缓存'**
   String get settingsClearCache;
 
-  /// No description provided for @settingsAboutSection.
+  /// 关于应用分组标题。
   ///
   /// In zh, this message translates to:
   /// **'关于'**
   String get settingsAboutSection;
 
-  /// No description provided for @settingsAppVersion.
+  /// 应用版本页面入口标签。
   ///
   /// In zh, this message translates to:
   /// **'App 版本'**
   String get settingsAppVersion;
 
-  /// No description provided for @settingsAboutMova.
+  /// 关于 Mova 页面入口标签。
   ///
   /// In zh, this message translates to:
   /// **'关于 Mova'**
   String get settingsAboutMova;
 
-  /// No description provided for @languageChinese.
+  /// 中文语言选项标签。
   ///
   /// In zh, this message translates to:
   /// **'中文'**
   String get languageChinese;
 
-  /// No description provided for @languageEnglish.
+  /// 英文语言选项标签。
   ///
   /// In zh, this message translates to:
   /// **'English'**
   String get languageEnglish;
 
-  /// No description provided for @aboutMovaDescription.
+  /// 关于 Mova 页面中的说明文本。
   ///
   /// In zh, this message translates to:
   /// **'Mova 是一款面向普通用户的现代格式工厂。'**
   String get aboutMovaDescription;
 
-  /// No description provided for @appVersionLabel.
+  /// 应用版本字段标签。
   ///
   /// In zh, this message translates to:
   /// **'版本'**
   String get appVersionLabel;
 
-  /// No description provided for @appBuildNumberLabel.
+  /// 应用构建号字段标签。
   ///
   /// In zh, this message translates to:
   /// **'构建号'**
   String get appBuildNumberLabel;
 
-  /// No description provided for @appPackageNameLabel.
+  /// 应用包名字段标签。
   ///
   /// In zh, this message translates to:
   /// **'包名'**
   String get appPackageNameLabel;
 
-  /// No description provided for @feedbackUnavailableMessage.
+  /// 无法打开邮件应用时显示的提示。
   ///
   /// In zh, this message translates to:
   /// **'暂时无法打开邮件应用。'**
   String get feedbackUnavailableMessage;
 
-  /// No description provided for @legalUnavailableMessage.
+  /// 无法打开法律相关占位链接时显示的提示。
   ///
   /// In zh, this message translates to:
   /// **'暂时无法打开占位链接。'**
   String get legalUnavailableMessage;
 
-  /// No description provided for @cacheClearConfirmTitle.
+  /// 清理缓存确认弹窗标题。
   ///
   /// In zh, this message translates to:
   /// **'清理缓存'**
   String get cacheClearConfirmTitle;
 
-  /// No description provided for @cacheClearConfirmMessage.
+  /// 清理缓存确认弹窗说明文本。
   ///
   /// In zh, this message translates to:
   /// **'这会删除临时文件和缓存，但会保留任务记录。'**
   String get cacheClearConfirmMessage;
 
-  /// No description provided for @cacheClearConfirmAction.
+  /// 确认清理缓存按钮标签。
   ///
   /// In zh, this message translates to:
   /// **'清理'**
   String get cacheClearConfirmAction;
 
-  /// No description provided for @cacheClearCancelledAction.
+  /// 取消清理缓存按钮标签。
   ///
   /// In zh, this message translates to:
   /// **'取消'**
   String get cacheClearCancelledAction;
 
-  /// No description provided for @cacheClearSuccessMessage.
+  /// 清理缓存成功后显示的提示。
   ///
   /// In zh, this message translates to:
   /// **'已清理 {size} 缓存。'**
-  String cacheClearSuccessMessage(Object size);
+  String cacheClearSuccessMessage(String size);
 
-  /// No description provided for @cacheClearErrorMessage.
+  /// 清理缓存失败时显示的提示。
   ///
   /// In zh, this message translates to:
   /// **'暂时无法清理缓存。'**
   String get cacheClearErrorMessage;
 
-  /// No description provided for @routeErrorTitle.
+  /// 路由兜底错误页标题。
   ///
   /// In zh, this message translates to:
   /// **'页面不存在'**
   String get routeErrorTitle;
 
-  /// No description provided for @routeErrorMessage.
+  /// 路由兜底错误页说明文本。
   ///
   /// In zh, this message translates to:
   /// **'暂时无法打开这个页面。'**
   String get routeErrorMessage;
 
-  /// No description provided for @webViewRefreshTooltip.
+  /// 内嵌网页刷新按钮提示。
   ///
   /// In zh, this message translates to:
   /// **'刷新'**
   String get webViewRefreshTooltip;
 
-  /// No description provided for @webViewLoadFailedTitle.
+  /// 内嵌网页加载失败时的标题。
   ///
   /// In zh, this message translates to:
   /// **'页面加载失败'**
   String get webViewLoadFailedTitle;
 
-  /// No description provided for @webViewRetryAction.
+  /// 内嵌网页加载失败后的重试按钮标签。
   ///
   /// In zh, this message translates to:
   /// **'重试'**
   String get webViewRetryAction;
 
-  /// No description provided for @webViewBackAction.
+  /// 内嵌网页后退按钮标签。
   ///
   /// In zh, this message translates to:
   /// **'后退'**
   String get webViewBackAction;
 
-  /// No description provided for @webViewForwardAction.
+  /// 内嵌网页前进按钮标签。
   ///
   /// In zh, this message translates to:
   /// **'前进'**
   String get webViewForwardAction;
 
-  /// No description provided for @webViewBlockedDomainMessage.
+  /// 访问未受信任域名时显示的提示。
   ///
   /// In zh, this message translates to:
   /// **'这个链接不在受信任域名列表中。'**
   String get webViewBlockedDomainMessage;
 
-  /// No description provided for @webViewExternalOpenFailedMessage.
+  /// 无法打开外部链接时显示的提示。
   ///
   /// In zh, this message translates to:
   /// **'暂时无法打开外部链接。'**

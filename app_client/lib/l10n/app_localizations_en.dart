@@ -109,7 +109,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cacheClearCancelledAction => 'Cancel';
 
   @override
-  String cacheClearSuccessMessage(Object size) {
+  String cacheClearSuccessMessage(String size) {
     return 'Cleared $size of cache.';
   }
 

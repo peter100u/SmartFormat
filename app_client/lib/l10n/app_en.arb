@@ -1,51 +1,181 @@
 {
   "@@locale": "en",
   "appTitle": "Mova",
+  "@appTitle": {
+    "description": "Application name shown in the app shell."
+  },
   "navHome": "Home",
+  "@navHome": {
+    "description": "Bottom navigation label for the home page."
+  },
   "navTasks": "Tasks",
+  "@navTasks": {
+    "description": "Bottom navigation label for the tasks page."
+  },
   "navSettings": "Settings",
+  "@navSettings": {
+    "description": "Bottom navigation label for the settings page."
+  },
   "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Page title for the settings screen."
+  },
   "settingsGeneral": "General",
+  "@settingsGeneral": {
+    "description": "Section header for general settings."
+  },
   "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Row label for language settings."
+  },
   "settingsSupport": "Support",
+  "@settingsSupport": {
+    "description": "Section header for support settings."
+  },
   "settingsFeedback": "Feedback",
+  "@settingsFeedback": {
+    "description": "Row label for feedback entry."
+  },
   "settingsFeedbackSubtitle": "Send questions and suggestions",
+  "@settingsFeedbackSubtitle": {
+    "description": "Subtitle for the feedback row in settings."
+  },
   "settingsPrivacyAndLegal": "Privacy & Legal",
+  "@settingsPrivacyAndLegal": {
+    "description": "Section header for privacy and legal settings."
+  },
   "settingsPrivacyPolicy": "Privacy Policy",
+  "@settingsPrivacyPolicy": {
+    "description": "Row label for the privacy policy page."
+  },
   "settingsUserAgreement": "User Agreement",
+  "@settingsUserAgreement": {
+    "description": "Row label for the user agreement page."
+  },
   "settingsLicense": "License",
+  "@settingsLicense": {
+    "description": "Row label for the license page."
+  },
   "settingsLicenseSubtitle": "Open-source components and FFmpegKit disclosure",
+  "@settingsLicenseSubtitle": {
+    "description": "Subtitle for the license row in settings."
+  },
   "settingsStorage": "Storage",
+  "@settingsStorage": {
+    "description": "Section header for storage settings."
+  },
   "settingsClearCache": "Clear Cache",
+  "@settingsClearCache": {
+    "description": "Action label for clearing cached files."
+  },
   "settingsAboutSection": "About",
+  "@settingsAboutSection": {
+    "description": "Section header for app about information."
+  },
   "settingsAppVersion": "App Version",
+  "@settingsAppVersion": {
+    "description": "Row label for the app version page."
+  },
   "settingsAboutMova": "About Mova",
+  "@settingsAboutMova": {
+    "description": "Row label for the about Mova page."
+  },
   "languageChinese": "Chinese",
+  "@languageChinese": {
+    "description": "Language option label for Chinese."
+  },
   "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "Language option label for English."
+  },
   "aboutMovaDescription": "Mova is a modern media converter built for everyday users.",
+  "@aboutMovaDescription": {
+    "description": "Body text shown on the about Mova page."
+  },
   "appVersionLabel": "Version",
+  "@appVersionLabel": {
+    "description": "Label for the app version value."
+  },
   "appBuildNumberLabel": "Build",
+  "@appBuildNumberLabel": {
+    "description": "Label for the app build number value."
+  },
   "appPackageNameLabel": "Package",
+  "@appPackageNameLabel": {
+    "description": "Label for the app package identifier value."
+  },
   "feedbackUnavailableMessage": "No available mail app was found.",
+  "@feedbackUnavailableMessage": {
+    "description": "Snackbar message shown when email feedback cannot be opened."
+  },
   "legalUnavailableMessage": "Unable to open the placeholder link right now.",
+  "@legalUnavailableMessage": {
+    "description": "Snackbar message shown when a legal placeholder link cannot be opened."
+  },
   "cacheClearConfirmTitle": "Clear Cache",
+  "@cacheClearConfirmTitle": {
+    "description": "Dialog title shown before clearing cache."
+  },
   "cacheClearConfirmMessage": "This will remove temporary files and cache, but keep task history.",
+  "@cacheClearConfirmMessage": {
+    "description": "Dialog message explaining the cache clear action."
+  },
   "cacheClearConfirmAction": "Clear",
+  "@cacheClearConfirmAction": {
+    "description": "Primary action label for confirming cache clear."
+  },
   "cacheClearCancelledAction": "Cancel",
+  "@cacheClearCancelledAction": {
+    "description": "Secondary action label for dismissing cache clear."
+  },
   "cacheClearSuccessMessage": "Cleared {size} of cache.",
   "@cacheClearSuccessMessage": {
+    "description": "Snackbar message shown after cache is cleared successfully.",
     "placeholders": {
-      "size": {}
+      "size": {
+        "type": "String",
+        "example": "42 MB"
+      }
     }
   },
   "cacheClearErrorMessage": "Unable to clear cache right now.",
+  "@cacheClearErrorMessage": {
+    "description": "Snackbar message shown when clearing cache fails."
+  },
   "routeErrorTitle": "Page Not Found",
+  "@routeErrorTitle": {
+    "description": "Title shown on the fallback route error page."
+  },
   "routeErrorMessage": "Unable to open this page right now.",
+  "@routeErrorMessage": {
+    "description": "Body text shown on the fallback route error page."
+  },
   "webViewRefreshTooltip": "Refresh",
+  "@webViewRefreshTooltip": {
+    "description": "Tooltip for refreshing the embedded web view."
+  },
   "webViewLoadFailedTitle": "Failed to load page",
+  "@webViewLoadFailedTitle": {
+    "description": "Title shown when the embedded web view fails to load."
+  },
   "webViewRetryAction": "Retry",
+  "@webViewRetryAction": {
+    "description": "Action label for retrying a failed web view load."
+  },
   "webViewBackAction": "Back",
+  "@webViewBackAction": {
+    "description": "Action label for navigating backward in the web view."
+  },
   "webViewForwardAction": "Forward",
+  "@webViewForwardAction": {
+    "description": "Action label for navigating forward in the web view."
+  },
   "webViewBlockedDomainMessage": "This link is not in the trusted domain list.",
-  "webViewExternalOpenFailedMessage": "Unable to open the external link."
+  "@webViewBlockedDomainMessage": {
+    "description": "Message shown when a web view URL is blocked because the domain is untrusted."
+  },
+  "webViewExternalOpenFailedMessage": "Unable to open the external link.",
+  "@webViewExternalOpenFailedMessage": {
+    "description": "Message shown when opening an external browser link fails."
+  }
 }
