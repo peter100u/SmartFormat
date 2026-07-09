@@ -1,21 +1,16 @@
 import 'package:open_file/open_file.dart';
 
-/// Opens generated result files using the platform's default handler.
+/// 使用平台默认处理器打开生成的结果文件。
 ///
-/// Boundary:
-/// - Result/task controllers call this service after verifying the task output.
-/// - Widgets must not call open_file directly.
-/// - Plugin return codes should be mapped to user-readable failures.
-abstract class OpenFileService {
-  Future<void> open(String path);
-}
+/// 边界：
+/// - 结果页和任务 controller 应在确认任务输出有效后调用这个服务。
+/// - Widget 不应直接调用 `open_file`。
+/// - 插件返回码应映射为用户可读的失败信息。
+class OpenFileService {
+  const OpenFileService();
 
-class PluginOpenFileService implements OpenFileService {
-  const PluginOpenFileService();
-
-  @override
   Future<void> open(String path) async {
-    // TODO(mvp): Surface OpenFile result errors instead of dropping plugin status.
+    // TODO(mvp): 暴露 `OpenFile` 的错误结果，而不是直接忽略插件状态。
     await OpenFile.open(path);
   }
 }

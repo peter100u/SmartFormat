@@ -1,19 +1,14 @@
-/// Centralizes permission checks and recovery guidance for platform inputs.
+/// 统一处理平台输入相关的权限检查与恢复指引。
 ///
-/// Boundary:
-/// - Controllers call this before file/photo actions that need permission.
-/// - Platform-specific permission_handler calls and settings redirects stay here.
-/// - UI receives user-readable state instead of raw platform permission objects.
-abstract class PermissionService {
-  Future<bool> canReadPhotos();
-}
+/// 边界：
+/// - controller 在执行需要权限的文件或相册操作前调用这里。
+/// - 平台相关的 `permission_handler` 调用和跳转系统设置逻辑应放在这里。
+/// - UI 应接收用户可读状态，而不是原始平台权限对象。
+class PermissionService {
+  const PermissionService();
 
-class PendingPermissionService implements PermissionService {
-  const PendingPermissionService();
-
-  @override
   Future<bool> canReadPhotos() async {
-    // TODO(mvp): Request/read photo permission and expose denied recovery state.
+    // TODO(mvp): 请求并读取相册权限，同时暴露被拒绝后的恢复状态。
     return false;
   }
 }

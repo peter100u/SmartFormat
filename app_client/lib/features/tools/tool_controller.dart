@@ -8,12 +8,12 @@ final toolFlowControllerProvider =
       ToolFlowController.new,
     );
 
-/// Handles the tool-detail flow state for one selected MVP tool.
+/// 管理单个已选 MVP 工具的详情流程状态。
 ///
-/// Boundary:
-/// - UI calls this controller for preset changes, input selection, and start.
-/// - File/photo/permission/task side effects go through services and TaskRunner.
-/// - The controller is the only place that should mutate ToolState.
+/// 边界：
+/// - UI 通过这个 controller 处理预设切换、输入选择和开始执行。
+/// - 文件、相册、权限、任务等副作用应通过 service 和 `TaskRunner` 完成。
+/// - 只有这个 controller 可以修改 `ToolState`。
 class ToolFlowController extends Notifier<ToolState> {
   ToolFlowController(this.toolId);
 
@@ -30,13 +30,13 @@ class ToolFlowController extends Notifier<ToolState> {
   }
 
   Future<void> selectFiles() async {
-    // TODO(mvp): Request permissions, pick files/assets, preflight them, and
-    // store selected MediaFile values in ToolState.
+    // TODO(mvp): 请求权限、选择文件或资源、执行预检，
+    // 并把选中的 `MediaFile` 保存到 `ToolState` 中。
   }
 
   Future<void> startTasks() async {
-    // TODO(mvp): Create one task per selected input, run TaskRunner, then route
-    // to the result page or task list when processing begins/completes.
+    // TODO(mvp): 为每个已选输入创建任务并交给 `TaskRunner` 执行，
+    // 然后在处理开始或完成后跳转到结果页或任务列表页。
     state = ToolState(
       tool: state.tool,
       selectedPresetId: state.selectedPresetId,

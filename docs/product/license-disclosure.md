@@ -26,7 +26,7 @@ Mova 需要在产品内清楚说明媒体处理能力所依赖的开源组件、
 「许可证」页面应覆盖以下信息：
 
 - Mova 使用的开源组件说明。
-- FFmpegKit Extended full 构建说明。
+- FFmpegKit Extended base 构建说明。
 - FFmpeg、FFmpegKit 及第三方媒体库与 Mova 的关系说明。
 - 当前构建的许可证状态。
 - 第三方许可证文本入口。
@@ -38,7 +38,7 @@ Mova 需要在产品内清楚说明媒体处理能力所依赖的开源组件、
 建议使用以下文案作为页面顶部说明：
 
 ```text
-Mova 使用 FFmpegKit Extended 的 full 构建版本提供本地媒体处理能力。
+Mova 当前开发阶段使用 FFmpegKit Extended 的 base 构建版本提供本地媒体处理能力。
 
 FFmpegKit、FFmpeg 及相关第三方媒体库是独立开源项目，版权归各自贡献者所有。Mova 与 FFmpeg、FFmpegKit 及其贡献者没有从属、赞助或背书关系。
 
@@ -47,29 +47,29 @@ Mova 后续如果推出高级版，收费对象应是本应用提供的多文件
 
 ## 构建信息表达
 
-当前产品规划以 `ffmpeg_kit_extended_flutter` 的 `full` 构建为基础。页面中应展示实际发布包的构建信息，而不是只写笼统说明。
+当前开发阶段以 `ffmpeg_kit_extended_flutter` 的 `base` 构建为基础。页面中应展示实际发布包的构建信息，而不是只写笼统说明。
 
 建议结构：
 
 ```text
 构建信息
 构建组件：FFmpegKit Extended
-构建类型：full
+构建类型：base
 GPL 组件：按实际构建配置显示 是/否
 平台：iOS / Android
 版本：显示实际集成版本号
 ```
 
-如果实际配置为 `full` 且 `gpl: false`，建议表达为：
+如果实际配置为 `base` 且 `gpl: false`，建议表达为：
 
 ```text
-本应用使用 FFmpegKit Extended 的 full 构建版本。该构建包含多个开源媒体库，具体许可证取决于实际启用的组件。我们会在本页面列出当前版本使用的组件、许可证文本和源码获取方式。
+本应用当前开发阶段使用 FFmpegKit Extended 的 base 构建版本。该构建以基础 FFmpeg 能力为主，具体许可证取决于实际启用的组件。我们会在本页面列出当前版本使用的组件、许可证文本和源码获取方式。
 ```
 
-如果实际配置为 `full + gpl: true`，建议表达为：
+如果实际配置为 `base + gpl: true`，建议表达为：
 
 ```text
-本应用使用包含 GPL 组件的 FFmpegKit Extended full 构建版本，并按 GPLv3 及相关许可证要求提供许可证文本、组件清单和源码获取方式。
+本应用使用包含 GPL 组件的 FFmpegKit Extended base 构建版本，并按 GPLv3 及相关许可证要求提供许可证文本、组件清单和源码获取方式。
 ```
 
 上线前必须用实际构建产物确认 GPL 状态，不能只按产品规划填写。

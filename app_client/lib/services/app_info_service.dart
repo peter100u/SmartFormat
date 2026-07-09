@@ -1,34 +1,37 @@
-/// Provides app identity shown in Settings and feedback diagnostics.
+import 'package:package_info_plus/package_info_plus.dart';
+
+import '../core/constants/app_constants.dart';
+
+/// 提供设置页和反馈诊断中展示的应用标识信息。
 ///
-/// Boundary:
-/// - UI should read this through providers/controllers, not hard-code build data.
-/// - package_info_plus integration belongs here.
+/// 边界：
+/// - UI 应通过 provider 或 controller 读取这里的数据，不应硬编码构建信息。
+/// - `package_info_plus` 的集成应放在这里。
 class AppInfo {
   const AppInfo({
+    required this.appName,
     required this.version,
     required this.buildNumber,
     required this.packageName,
   });
 
+  final String appName;
   final String version;
   final String buildNumber;
   final String packageName;
 }
 
-abstract class AppInfoService {
-  Future<AppInfo> load();
-}
+/// 通过运行时包信息读取当前应用版本和包名。
+class AppInfoService {
+  const AppInfoService();
 
-class PendingAppInfoService implements AppInfoService {
-  const PendingAppInfoService();
-
-  @override
   Future<AppInfo> load() async {
-    // TODO(mvp): Replace static values with package_info_plus runtime metadata.
-    return const AppInfo(
-      version: '1.0.0',
-      buildNumber: '1',
-      packageName: 'com.peter100u.mova',
+    final info = await PackageInfo.fromPlatform();
+    return AppInfo(
+      appName: AppConstants.appName,
+      version: info.version,
+      buildNumber: info.buildNumber,
+      packageName: info.packageName,
     );
   }
 }

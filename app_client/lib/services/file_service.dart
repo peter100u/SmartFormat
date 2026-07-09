@@ -1,21 +1,16 @@
 import '../shared/models/media_file.dart';
 
-/// Wraps the system file picker and maps platform file handles to MediaFile.
+/// 封装系统文件选择器，并将平台文件句柄映射为 `MediaFile`。
 ///
-/// Boundary:
-/// - Tool controllers ask this service for inputs.
-/// - Widgets must not call file_picker directly.
-/// - iOS/Android path, sandbox, and security-scoped access differences belong here.
-abstract class FileService {
-  Future<List<MediaFile>> pickFiles();
-}
+/// 边界：
+/// - 工具 controller 应通过这个服务获取输入文件。
+/// - Widget 不应直接调用 `file_picker`。
+/// - iOS/Android 的路径、沙箱和安全作用域访问差异应在这里处理。
+class FileService {
+  const FileService();
 
-class PendingFileService implements FileService {
-  const PendingFileService();
-
-  @override
   Future<List<MediaFile>> pickFiles() async {
-    // TODO(mvp): Integrate file_picker and support single/multi media inputs.
+    // TODO(mvp): 集成 `file_picker`，并支持单个或多个媒体文件输入。
     return const [];
   }
 }

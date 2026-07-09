@@ -18,18 +18,6 @@ class HomePage extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Mova'),
-          actions: [
-            IconButton(
-              tooltip: '任务',
-              onPressed: () => context.goNamed(AppRoutes.tasks),
-              icon: const Icon(Icons.task_alt_outlined),
-            ),
-            IconButton(
-              tooltip: '设置',
-              onPressed: () => context.goNamed(AppRoutes.settings),
-              icon: const Icon(Icons.settings_outlined),
-            ),
-          ],
           bottom: const TabBar(
             tabs: [
               Tab(text: '视频'),

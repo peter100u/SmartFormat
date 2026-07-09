@@ -1,12 +1,12 @@
 import 'media_file.dart';
 import 'tool_models.dart';
 
-/// Immutable task pipeline models shared by controllers, runners, and services.
+/// controller、runner 和 service 共享的不可变任务流水线模型。
 ///
-/// Boundary:
-/// - TaskRequest describes the work to create from selected inputs and presets.
-/// - TaskRecord describes persisted history and result lookup state.
-/// - Platform/plugin return values should be normalized before entering these models.
+/// 边界：
+/// - `TaskRequest` 描述基于已选输入和预设需要创建的工作项。
+/// - `TaskRecord` 描述已持久化的历史记录和结果查询状态。
+/// - 平台或插件返回值在进入这些模型前应先完成规范化。
 class TaskRequest {
   const TaskRequest({
     required this.id,
